@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>10-Minute Coach · 10-минутный тренер</title>
+<meta name="description" content="30 minutes a day with dumbbells and a bench: morning, midday, evening — 10 min each. Shows what to do now, with a timer. Русский и English.">
+<meta name="theme-color" content="#0b1220">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Coach">
+<link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><span class="brand-ico">🏋️</span><span id="brandText">10-Minute Coach</span></div>
+  <div class="topbar-actions">
+    <button id="installBtn" class="btn-ghost" hidden>Install</button>
+    <div class="lang-toggle" id="langToggle"></div>
+    <div class="clock" id="clock">--:--</div>
+  </div>
+</header>
+
+<main id="home">
+  <div class="daybar" id="dayRow"></div>
+  <section class="hero" id="hero"></section>
+  <section id="exList" class="exlist"></section>
+  <section class="reference" id="reference"></section>
+  <p class="motto" id="motto"></p>
+</main>
+
+<div id="player" class="player" hidden></div>
+
+<div id="iosHint" class="ios-hint" hidden>
+  <span id="iosHintText"></span>
+  <button id="iosHintClose" aria-label="close">✕</button>
+</div>
+
+<script src="data.js?v=2"></script>
+<script src="app.js?v=2"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js?v=2').catch(function (e) { console.warn('SW fail', e); });
+    });
+  }
+</script>
+</body>
+</html>

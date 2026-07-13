@@ -1,0 +1,8 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# local Claude settings (keep launch.json tracked)
+.claude/settings.local.json
