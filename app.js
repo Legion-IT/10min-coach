@@ -11,7 +11,7 @@
   };
 
   /* ---------- Тайминги ---------- */
-  var WORK = 45, WORK_SIDE = 50, REST = 15, REST_ROUND = 30, WARMUP = 60, ROUNDS = 2;
+  var WORK = 45, WORK_SIDE = 50, REST = 15, REST_EX = 20, WARMUP = 60, SETS = 2;
 
   /* ---------- Язык ---------- */
   function detectLang() {
@@ -31,6 +31,8 @@
       exercises: 'Упражнения', whatToDo: 'Что делать',
       repeat: 'повтор', lightDay: 'лёгкий день', start: 'Начать',
       rounds: function (n) { return n + ' круг' + (n === 1 ? '' : (n < 5 ? 'а' : 'ов')); },
+      sets: function (n) { return n + ' подход' + (n === 1 ? '' : (n < 5 ? 'а' : 'ов')); },
+      setLbl: function (n) { return 'подход ' + n; },
       structTitle: 'Структура 10 минут', weightTitle: 'Вес', kneesTitle: 'Колени — очень мягко', tempoTitle: 'Темп',
       accProgress: 'Как прогрессировать', accForm: 'Делайте правильно', accStop: 'Когда остановиться',
       motto: 'Регулярность важнее идеальности.<br>30 минут каждый день — уже победа! 🏆',
@@ -38,7 +40,7 @@
       warmName: 'Разминка', warmSub: 'Лёгкие движения, разогрев суставов',
       restName: 'Отдых', restSub: 'Восстановите дыхание',
       next: 'Дальше:', lastEx: 'Последнее упражнение 💪', easyEnjoy: 'Спокойно и в удовольствие',
-      exOf: function (i, m, r, rs) { return 'Упражнение ' + i + ' из ' + m + ' · круг ' + r + '/' + rs; },
+      exOf: function (i, m, r, rs) { return 'Упражнение ' + i + ' из ' + m + ' · подход ' + r + '/' + rs; },
       switchSides: 'Смените сторону',
       back: 'Назад', pause: 'Пауза', resume: 'Продолжить', skip: 'Пропустить',
       doneH: 'Готово!', doneSub: function (b) { return 'Блок «' + b + '» завершён. Регулярность важнее идеальности — так держать!'; },
@@ -53,6 +55,8 @@
       exercises: 'Exercises', whatToDo: 'What to do',
       repeat: 'repeat', lightDay: 'light day', start: 'Start',
       rounds: function (n) { return n + ' round' + (n === 1 ? '' : 's'); },
+      sets: function (n) { return n + ' set' + (n === 1 ? '' : 's'); },
+      setLbl: function (n) { return 'set ' + n; },
       structTitle: '10-minute structure', weightTitle: 'Weight', kneesTitle: 'Knees — very gently', tempoTitle: 'Tempo',
       accProgress: 'How to progress', accForm: 'Do it right', accStop: 'When to stop',
       motto: 'Consistency beats perfection.<br>30 minutes a day is already a win! 🏆',
@@ -60,7 +64,7 @@
       warmName: 'Warm-up', warmSub: 'Light movements, joint warm-up',
       restName: 'Rest', restSub: 'Catch your breath',
       next: 'Next:', lastEx: 'Last exercise 💪', easyEnjoy: 'Easy and enjoyable',
-      exOf: function (i, m, r, rs) { return 'Exercise ' + i + ' of ' + m + ' · round ' + r + '/' + rs; },
+      exOf: function (i, m, r, rs) { return 'Exercise ' + i + ' of ' + m + ' · set ' + r + '/' + rs; },
       switchSides: 'Switch sides',
       back: 'Back', pause: 'Pause', resume: 'Resume', skip: 'Skip',
       doneH: 'Done!', doneSub: function (b) { return 'Block "' + b + '" complete. Consistency beats perfection — keep it up!'; },
@@ -93,14 +97,14 @@
   /* ---------- Длительность блока ---------- */
   function blockDuration(block) {
     if (block.mode === 'single') return block.ex[0].s || 600;
-    var rounds = block.rounds || (block.mode === 'circuit' ? 1 : ROUNDS);
+    var sets = block.rounds || (block.mode === 'circuit' ? 1 : SETS);
     var warm = block.warmup != null ? block.warmup : WARMUP;
-    var total = warm;
-    for (var r = 0; r < rounds; r++) {
-      for (var i = 0; i < block.ex.length; i++) {
+    var total = warm, count = block.ex.length;
+    for (var i = 0; i < count; i++) {
+      for (var st = 1; st <= sets; st++) {
         total += workSecs(block.ex[i]).dur;
-        var last = (r === rounds - 1 && i === block.ex.length - 1);
-        if (!last) total += (i === block.ex.length - 1) ? REST_ROUND : REST;
+        var last = (i === count - 1 && st === sets);
+        if (!last) total += (st < sets) ? REST : REST_EX;
       }
     }
     return total;
@@ -183,10 +187,10 @@
     wrap.style.setProperty('--accent',
       state.block === 'morning' ? 'var(--morning)' : state.block === 'day' ? 'var(--day)' : 'var(--evening)');
 
-    var rounds = block.rounds || ROUNDS;
+    var rounds = block.rounds || SETS;
     var head = '<div class="exlist-head"><h2>' +
       (block.mode === 'single' ? S().whatToDo : S().exercises) + '</h2><span class="ex-reps">' +
-      (block.mode === 'single' ? '' : S().rounds(rounds)) + '</span></div>';
+      (block.mode === 'single' ? '' : (block.mode === 'circuit' ? S().rounds(rounds) : S().sets(rounds))) + '</span></div>';
 
     var cards = block.ex.map(function (ex, i) {
       return '<div class="ex-card">' +
@@ -252,18 +256,19 @@
         s.push({ type: 'done' });
         return s;
       }
-      var rounds = block.rounds || (block.mode === 'circuit' ? 1 : ROUNDS);
+      var sets = block.rounds || (block.mode === 'circuit' ? 1 : SETS);
       var warm = block.warmup != null ? block.warmup : WARMUP;
       if (warm > 0) s.push({ type: 'warmup', dur: warm });
-      for (var r = 1; r <= rounds; r++) {
-        for (var i = 0; i < block.ex.length; i++) {
-          var ex = block.ex[i], ws = workSecs(ex);
-          s.push({ type: 'work', ex: ex, dur: ws.dur, switchAt: ws.switchAt, round: r, rounds: rounds, idx: i, count: block.ex.length });
-          var last = (r === rounds && i === block.ex.length - 1);
+      var count = block.ex.length;
+      for (var i = 0; i < count; i++) {
+        var ex = block.ex[i], ws = workSecs(ex);
+        for (var st = 1; st <= sets; st++) {
+          s.push({ type: 'work', ex: ex, dur: ws.dur, switchAt: ws.switchAt, set: st, sets: sets, idx: i, count: count });
+          var last = (i === count - 1 && st === sets);
           if (!last) {
-            var isRoundEnd = (i === block.ex.length - 1);
-            var nextEx = isRoundEnd ? block.ex[0] : block.ex[i + 1];
-            s.push({ type: 'rest', dur: isRoundEnd ? REST_ROUND : REST, next: nextEx, roundBreak: isRoundEnd, round: r });
+            var interSet = (st < sets);
+            var nextEx = interSet ? ex : block.ex[i + 1];
+            s.push({ type: 'rest', dur: interSet ? REST : REST_EX, next: nextEx, interSet: interSet, nextSet: interSet ? st + 1 : 1 });
           }
         }
       }
@@ -319,7 +324,7 @@
       var mid = $('#plMid');
       var phaseCls = st.type === 'rest' ? 'rest' : st.type === 'warmup' ? 'warm' : '';
       var phaseTxt = st.type === 'warmup' ? S().phWarm
-        : st.type === 'rest' ? (st.roundBreak ? S().phRestNew : S().phRest)
+        : st.type === 'rest' ? S().phRest
         : st.type === 'activity' ? S().phActivity : S().phEx;
 
       var pose, name, reps, nextHtml = '', dots = '', counter = '';
@@ -329,14 +334,14 @@
         nextHtml = S().next + ' <b>' + L(steps[idx + 1].ex.n) + '</b>';
       } else if (st.type === 'rest') {
         pose = st.next.p; name = S().restName; reps = S().restSub;
-        nextHtml = S().next + ' <b>' + L(st.next.n) + '</b> · ' + stripTags(repsHtml(st.next));
+        nextHtml = S().next + ' <b>' + L(st.next.n) + '</b> · ' + (st.interSet ? S().setLbl(st.nextSet) : stripTags(repsHtml(st.next)));
       } else {
         var ex = st.ex;
         pose = ex.p; name = L(ex.n); reps = repsHtml(ex);
         if (st.type === 'work') {
-          counter = S().exOf(st.idx + 1, st.count, st.round, st.rounds);
+          counter = S().exOf(st.idx + 1, st.count, st.set, st.sets);
           var nx = steps[idx + 1];
-          if (nx && nx.type === 'rest') nextHtml = S().next + ' <b>' + L(nx.next.n) + '</b>';
+          if (nx && nx.type === 'rest') nextHtml = S().next + ' <b>' + L(nx.next.n) + '</b>' + (nx.interSet ? ' · ' + S().setLbl(nx.nextSet) : '');
           else if (nx && nx.type === 'done') nextHtml = S().lastEx;
           dots = dotRow(st);
         } else { counter = S().easyEnjoy; }
@@ -363,7 +368,7 @@
     }
 
     function dotRow(st) {
-      var out = '', total = st.count * st.rounds, done = (st.round - 1) * st.count + st.idx;
+      var out = '', total = st.count * st.sets, done = st.idx * st.sets + (st.set - 1);
       for (var k = 0; k < total; k++) out += '<i class="' + (k < done ? 'done' : (k === done ? 'on' : '')) + '"></i>';
       return out;
     }
@@ -494,7 +499,7 @@
     }
     function speakForStep(st) {
       if (st.type === 'work' || st.type === 'activity') speak(L(st.ex.n));
-      else if (st.type === 'rest') speak(st.roundBreak ? S().spRestNew : S().spRest);
+      else if (st.type === 'rest') speak(S().spRest);
       else if (st.type === 'warmup') speak(S().spWarm);
     }
     function toggleSound() {
