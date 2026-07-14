@@ -33,6 +33,7 @@
       rounds: function (n) { return n + ' круг' + (n === 1 ? '' : (n < 5 ? 'а' : 'ов')); },
       sets: function (n) { return n + ' подход' + (n === 1 ? '' : (n < 5 ? 'а' : 'ов')); },
       setLbl: function (n) { return 'подход ' + n; },
+      shuffle: 'Другие',
       structTitle: 'Структура 10 минут', weightTitle: 'Вес', kneesTitle: 'Колени — очень мягко', tempoTitle: 'Темп',
       accProgress: 'Как прогрессировать', accForm: 'Делайте правильно', accStop: 'Когда остановиться',
       motto: 'Регулярность важнее идеальности.<br>30 минут каждый день — уже победа! 🏆',
@@ -57,6 +58,7 @@
       rounds: function (n) { return n + ' round' + (n === 1 ? '' : 's'); },
       sets: function (n) { return n + ' set' + (n === 1 ? '' : 's'); },
       setLbl: function (n) { return 'set ' + n; },
+      shuffle: 'Shuffle',
       structTitle: '10-minute structure', weightTitle: 'Weight', kneesTitle: 'Knees — very gently', tempoTitle: 'Tempo',
       accProgress: 'How to progress', accForm: 'Do it right', accStop: 'When to stop',
       motto: 'Consistency beats perfection.<br>30 minutes a day is already a win! 🏆',
@@ -95,14 +97,14 @@
   function dispTime(sec) { sec = Math.max(0, Math.round(sec)); return sec >= 60 ? mmss(sec) : String(sec); }
 
   /* ---------- Длительность блока ---------- */
-  function blockDuration(block) {
-    if (block.mode === 'single') return block.ex[0].s || 600;
+  function blockDuration(block, exs) {
+    if (block.mode === 'single') return (exs[0] && exs[0].s) || 600;
     var sets = block.rounds || (block.mode === 'circuit' ? 1 : SETS);
     var warm = block.warmup != null ? block.warmup : WARMUP;
-    var total = warm, count = block.ex.length;
+    var total = warm, count = exs.length;
     for (var i = 0; i < count; i++) {
       for (var st = 1; st <= sets; st++) {
-        total += workSecs(block.ex[i]).dur;
+        total += workSecs(exs[i]).dur;
         var last = (i === count - 1 && st === sets);
         if (!last) total += (st < sets) ? REST : REST_EX;
       }
@@ -113,6 +115,39 @@
     if (ex.side) { var base = ex.s ? ex.s * 2 : WORK_SIDE; return { dur: base, switchAt: Math.round(base / 2) }; }
     return { dur: ex.s || WORK, switchAt: 0 };
   }
+
+  /* ---------- Случайный подбор упражнений по слотам (с ротацией) ---------- */
+  var selCache = {};
+  function exId(ex) { return ex.n.en; }
+  function chooseExercise(cat, excludeIds) {
+    var pool = A.POOL[cat] || [];
+    if (!pool.length) return null;
+    var avail = pool.filter(function (e) { return excludeIds.indexOf(exId(e)) === -1; });
+    if (!avail.length) avail = pool.slice();
+    var last = load('coach_last_' + cat, null);
+    var fresh = avail.filter(function (e) { return exId(e) !== last; });
+    var from = fresh.length ? fresh : avail;
+    var picked = from[Math.floor(Math.random() * from.length)];
+    save('coach_last_' + cat, exId(picked));
+    return picked;
+  }
+  function blockExercises(dow, blockKey) {
+    var key = dow + '-' + blockKey;
+    if (selCache[key]) return selCache[key];
+    var block = A.blockFor(dow, blockKey);
+    var ex;
+    if (block.slots) {
+      var chosen = [];
+      block.slots.forEach(function (cat) {
+        var e = chooseExercise(cat, chosen.map(exId));
+        if (e) chosen.push(e);
+      });
+      ex = chosen;
+    } else { ex = block.ex; }
+    selCache[key] = ex;
+    return ex;
+  }
+  function reshuffle(dow, blockKey) { delete selCache[dow + '-' + blockKey]; }
 
   function repsHtml(ex) {
     return L(ex.r).replace(/\/\s*(нога|сторона|рука|leg|side|arm)/i, '<span class="side-tag">/ $1</span>');
@@ -163,15 +198,17 @@
         L(A.BLOCK_LABELS[k]) + '<span class="sg-sub">' + S().min10 + '</span></button>';
     }).join('');
 
+    var exs = blockExercises(state.dow, state.block);
     var lightBadge = w.light ? ' · <span class="light-badge">' + S().lightDay + '</span>' : '';
     var repeatBadge = w.repeat ? ' · ' + S().repeat : '';
-    var dur = blockDuration(block);
+    var setsBadge = block.mode === 'single' ? '' : ' · ' + (block.mode === 'circuit' ? S().rounds(block.rounds || 1) : S().sets(SETS));
+    var dur = blockDuration(block, exs);
 
     hero.innerHTML =
       '<div class="hero-top">' + nowLabel + '<span class="hero-daytag">' + L(w.tag) + '</span></div>' +
       '<div class="seg" id="seg">' + seg + '</div>' +
       '<div class="hero-title">' + L(block.title) + '</div>' +
-      '<div class="hero-sub">' + L(w.title) + repeatBadge + lightBadge + ' · ~' + mmss(dur) + '</div>' +
+      '<div class="hero-sub">' + L(w.title) + repeatBadge + lightBadge + setsBadge + ' · ~' + mmss(dur) + '</div>' +
       '<button class="btn-start" id="startBtn">▶ ' + S().start + ' <span class="b-time">· ' + L(A.BLOCK_LABELS[state.block]) + '</span></button>';
 
     $('#seg').addEventListener('click', function (e) {
@@ -187,12 +224,13 @@
     wrap.style.setProperty('--accent',
       state.block === 'morning' ? 'var(--morning)' : state.block === 'day' ? 'var(--day)' : 'var(--evening)');
 
-    var rounds = block.rounds || SETS;
+    var exs = blockExercises(state.dow, state.block);
     var head = '<div class="exlist-head"><h2>' +
-      (block.mode === 'single' ? S().whatToDo : S().exercises) + '</h2><span class="ex-reps">' +
-      (block.mode === 'single' ? '' : (block.mode === 'circuit' ? S().rounds(rounds) : S().sets(rounds))) + '</span></div>';
+      (block.mode === 'single' ? S().whatToDo : S().exercises) + '</h2>' +
+      (block.slots ? '<button class="shuffle-btn" id="shuffleBtn">🎲 <span>' + S().shuffle + '</span></button>' : '') +
+      '</div>';
 
-    var cards = block.ex.map(function (ex, i) {
+    var cards = exs.map(function (ex, i) {
       return '<div class="ex-card">' +
         '<div class="ex-thumb">' + A.svgFor(ex.p) + '</div>' +
         '<div class="ex-info"><div class="ex-name">' + L(ex.n) + '</div>' +
@@ -201,6 +239,10 @@
     }).join('');
 
     wrap.innerHTML = head + cards;
+    var sb = $('#shuffleBtn');
+    if (sb) sb.addEventListener('click', function () {
+      reshuffle(state.dow, state.block); renderHero(); renderExList();
+    });
   }
 
   function renderReference() {
@@ -252,25 +294,25 @@
     var music = null;
     var MUSIC = { morning: 'assets/audio/music-morning.mp3', day: 'assets/audio/music-day.mp3', evening: 'assets/audio/music-evening.mp3' };
 
-    function build(block) {
+    function build(block, exs) {
       var s = [];
       if (block.mode === 'single') {
-        s.push({ type: 'activity', ex: block.ex[0], dur: block.ex[0].s || 600 });
+        s.push({ type: 'activity', ex: exs[0], dur: exs[0].s || 600 });
         s.push({ type: 'done' });
         return s;
       }
       var sets = block.rounds || (block.mode === 'circuit' ? 1 : SETS);
       var warm = block.warmup != null ? block.warmup : WARMUP;
       if (warm > 0) s.push({ type: 'warmup', dur: warm });
-      var count = block.ex.length;
+      var count = exs.length;
       for (var i = 0; i < count; i++) {
-        var ex = block.ex[i], ws = workSecs(ex);
+        var ex = exs[i], ws = workSecs(ex);
         for (var st = 1; st <= sets; st++) {
           s.push({ type: 'work', ex: ex, dur: ws.dur, switchAt: ws.switchAt, set: st, sets: sets, idx: i, count: count });
           var last = (i === count - 1 && st === sets);
           if (!last) {
             var interSet = (st < sets);
-            var nextEx = interSet ? ex : block.ex[i + 1];
+            var nextEx = interSet ? ex : exs[i + 1];
             s.push({ type: 'rest', dur: interSet ? REST : REST_EX, next: nextEx, interSet: interSet, nextSet: interSet ? st + 1 : 1 });
           }
         }
@@ -282,7 +324,7 @@
     function open(dow, blockKey) {
       var block = A.blockFor(dow, blockKey);
       curBlockKey = blockKey;
-      steps = build(block);
+      steps = build(block, blockExercises(dow, blockKey));
       idx = 0; running = true; paused = false; switched = false;
       totalDur = steps.reduce(function (a, s) { return a + (s.dur || 0); }, 0);
       root.className = 'player ' + blockKey;
