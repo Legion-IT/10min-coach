@@ -212,6 +212,13 @@ main {
 .pl-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
 .pl-icon-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.09); color: var(--text); font-size: 18px; display: grid; place-items: center; }
 .pl-icon-btn:active { transform: scale(.92); }
+.pl-top-right { display: flex; align-items: center; gap: 8px; }
+.pl-icon-btn.music.off { opacity: .42; }
+.pl-icon-btn.music.off::after {
+  content: ''; position: absolute; width: 26px; height: 2.5px; background: currentColor;
+  transform: rotate(-45deg); border-radius: 2px; opacity: .9;
+}
+.pl-icon-btn.music { position: relative; }
 .pl-title { text-align: center; min-width: 0; }
 .pl-title .t1 { font-size: 12px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
 .pl-title .t2 { font-size: 15px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

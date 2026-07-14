@@ -13,7 +13,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Coach">
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
@@ -41,12 +41,12 @@
   <button id="iosHintClose" aria-label="close">✕</button>
 </div>
 
-<script src="data.js?v=3"></script>
-<script src="app.js?v=3"></script>
+<script src="data.js?v=4"></script>
+<script src="app.js?v=4"></script>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js?v=3').catch(function (e) { console.warn('SW fail', e); });
+      navigator.serviceWorker.register('sw.js?v=4').catch(function (e) { console.warn('SW fail', e); });
     });
   }
 </script>

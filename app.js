@@ -248,6 +248,9 @@
     var curBlockKey = 'morning';
     var wakeLock = null;
     var soundOn = load('coach_sound', true);
+    var musicOn = load('coach_music', true);
+    var music = null;
+    var MUSIC = { morning: 'music-morning.mp3', day: 'music-day.mp3', evening: 'music-evening.mp3' };
 
     function build(block) {
       var s = [];
@@ -287,6 +290,7 @@
       document.body.style.overflow = 'hidden';
       requestWakeLock();
       initAudio();
+      startMusic(blockKey);
       renderShell(block);
       enterStep(0);
     }
@@ -298,11 +302,15 @@
           '<button class="pl-icon-btn" id="plClose" aria-label="close">✕</button>' +
           '<div class="pl-title"><div class="t1">' + L(A.BLOCK_LABELS[curBlockKey]) + ' · ' + L(A.WEEK[state.dow].tag) + '</div>' +
             '<div class="t2">' + L(block.title) + '</div></div>' +
-          '<button class="pl-icon-btn" id="plSound" aria-label="sound">' + (soundOn ? '🔊' : '🔇') + '</button>' +
+          '<div class="pl-top-right">' +
+            '<button class="pl-icon-btn music ' + (musicOn ? 'on' : 'off') + '" id="plMusic" aria-label="music">🎵</button>' +
+            '<button class="pl-icon-btn" id="plSound" aria-label="sound">' + (soundOn ? '🔊' : '🔇') + '</button>' +
+          '</div>' +
         '</div>' +
         '<div class="pl-mid" id="plMid"></div>';
       $('#plClose').addEventListener('click', close);
       $('#plSound').addEventListener('click', toggleSound);
+      $('#plMusic').addEventListener('click', toggleMusic);
     }
 
     function enterStep(i) {
@@ -463,10 +471,29 @@
     }
 
     function close() {
-      running = false; cancelAnimationFrame(raf); releaseWakeLock();
+      running = false; cancelAnimationFrame(raf); releaseWakeLock(); stopMusic();
       root.hidden = true; root.innerHTML = '';
       document.body.style.overflow = '';
       renderAll();
+    }
+
+    /* ---- Фоновая музыка (клезмер по времени суток) ---- */
+    function startMusic(blockKey) {
+      try {
+        if (!music) { music = new Audio(); music.loop = true; music.volume = 0.32; music.preload = 'auto'; }
+        var src = MUSIC[blockKey];
+        if (src && (!music.src || music.src.indexOf(src) === -1)) music.src = src;
+        if (musicOn && src) { try { music.currentTime = 0; } catch (e) {} music.play().catch(function () {}); }
+      } catch (e) {}
+    }
+    function stopMusic() { try { if (music) music.pause(); } catch (e) {} }
+    function toggleMusic() {
+      musicOn = !musicOn; save('coach_music', musicOn);
+      var b = $('#plMusic'); if (b) { b.classList.toggle('on', musicOn); b.classList.toggle('off', !musicOn); }
+      try {
+        if (musicOn) { if (music && music.src) music.play().catch(function () {}); else startMusic(curBlockKey); }
+        else if (music) music.pause();
+      } catch (e) {}
     }
 
     /* ---- Звук / голос ---- */
