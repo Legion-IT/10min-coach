@@ -1,20 +1,20 @@
 /* Service Worker — офлайн-режим для «10-минутный тренер» */
-var CACHE = 'coach-v4';
+var CACHE = 'coach-v5';
 var ASSETS = [
   './',
   './index.html',
-  './styles.css?v=4',
-  './data.js?v=4',
-  './app.js?v=4',
   './manifest.webmanifest',
-  './icon.svg',
-  './icon-192.png',
-  './icon-512.png',
-  './icon-maskable-192.png',
-  './icon-maskable-512.png',
-  './music-morning.mp3',
-  './music-day.mp3',
-  './music-evening.mp3'
+  './assets/css/styles.css?v=5',
+  './assets/js/data.js?v=5',
+  './assets/js/app.js?v=5',
+  './assets/icons/icon.svg',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-512.png',
+  './assets/icons/icon-maskable-192.png',
+  './assets/icons/icon-maskable-512.png',
+  './assets/audio/music-morning.mp3',
+  './assets/audio/music-day.mp3',
+  './assets/audio/music-evening.mp3'
 ];
 
 self.addEventListener('install', function (e) {

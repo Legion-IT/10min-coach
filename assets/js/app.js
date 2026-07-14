@@ -250,7 +250,7 @@
     var soundOn = load('coach_sound', true);
     var musicOn = load('coach_music', true);
     var music = null;
-    var MUSIC = { morning: 'music-morning.mp3', day: 'music-day.mp3', evening: 'music-evening.mp3' };
+    var MUSIC = { morning: 'assets/audio/music-morning.mp3', day: 'assets/audio/music-day.mp3', evening: 'assets/audio/music-evening.mp3' };
 
     function build(block) {
       var s = [];

@@ -7,13 +7,13 @@
 <meta name="description" content="30 minutes a day with dumbbells and a bench: morning, midday, evening — 10 min each. Shows what to do now, with a timer. Русский и English.">
 <meta name="theme-color" content="#0b1220">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Coach">
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="assets/css/styles.css?v=5">
 </head>
 <body>
 
@@ -41,12 +41,12 @@
   <button id="iosHintClose" aria-label="close">✕</button>
 </div>
 
-<script src="data.js?v=4"></script>
-<script src="app.js?v=4"></script>
+<script src="assets/js/data.js?v=5"></script>
+<script src="assets/js/app.js?v=5"></script>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js?v=4').catch(function (e) { console.warn('SW fail', e); });
+      navigator.serviceWorker.register('sw.js?v=5').catch(function (e) { console.warn('SW fail', e); });
     });
   }
 </script>
