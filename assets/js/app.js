@@ -33,7 +33,7 @@
       rounds: function (n) { return n + ' круг' + (n === 1 ? '' : (n < 5 ? 'а' : 'ов')); },
       sets: function (n) { return n + ' подход' + (n === 1 ? '' : (n < 5 ? 'а' : 'ов')); },
       setLbl: function (n) { return 'подход ' + n; },
-      shuffle: 'Другие',
+      shuffle: 'Другие', howTo: 'Как делать', howHint: 'Медленно и подконтрольно, дышите спокойно.',
       structTitle: 'Структура 10 минут', weightTitle: 'Вес', kneesTitle: 'Колени — очень мягко', tempoTitle: 'Темп',
       accProgress: 'Как прогрессировать', accForm: 'Делайте правильно', accStop: 'Когда остановиться',
       motto: 'Регулярность важнее идеальности.<br>30 минут каждый день — уже победа! 🏆',
@@ -58,7 +58,7 @@
       rounds: function (n) { return n + ' round' + (n === 1 ? '' : 's'); },
       sets: function (n) { return n + ' set' + (n === 1 ? '' : 's'); },
       setLbl: function (n) { return 'set ' + n; },
-      shuffle: 'Shuffle',
+      shuffle: 'Shuffle', howTo: 'How to do it', howHint: 'Slow and controlled, breathe calmly.',
       structTitle: '10-minute structure', weightTitle: 'Weight', kneesTitle: 'Knees — very gently', tempoTitle: 'Tempo',
       accProgress: 'How to progress', accForm: 'Do it right', accStop: 'When to stop',
       motto: 'Consistency beats perfection.<br>30 minutes a day is already a win! 🏆',
@@ -231,17 +231,20 @@
       '</div>';
 
     var cards = exs.map(function (ex, i) {
-      return '<div class="ex-card">' +
+      return '<div class="ex-card" data-i="' + i + '">' +
         '<div class="ex-thumb">' + A.svgFor(ex.p) + '</div>' +
         '<div class="ex-info"><div class="ex-name">' + L(ex.n) + '</div>' +
         '<div class="ex-reps">' + repsHtml(ex) + '</div></div>' +
-        '<div class="ex-num">' + (i + 1) + '</div></div>';
+        '<span class="ex-i">ⓘ</span><div class="ex-num">' + (i + 1) + '</div></div>';
     }).join('');
 
     wrap.innerHTML = head + cards;
     var sb = $('#shuffleBtn');
     if (sb) sb.addEventListener('click', function () {
       reshuffle(state.dow, state.block); renderHero(); renderExList();
+    });
+    wrap.querySelectorAll('.ex-card').forEach(function (card) {
+      card.addEventListener('click', function () { openExerciseInfo(exs[+card.getAttribute('data-i')], state.block); });
     });
   }
 
@@ -277,6 +280,26 @@
     if (l === lang) return;
     lang = l; save('coach_lang', l);
     renderAll();
+  }
+
+  /* ---------- Карточка «как делать» ---------- */
+  function openExerciseInfo(ex, blockKey) {
+    var m = $('#exModal'); if (!m || !ex) return;
+    var desc = A.descFor(ex, lang) || S().howHint;
+    m.className = 'ex-modal ' + (blockKey || state.block);
+    m.innerHTML =
+      '<div class="ex-modal-back" id="exModalBack"></div>' +
+      '<div class="ex-modal-card" role="dialog" aria-modal="true">' +
+        '<button class="ex-modal-close" id="exModalClose" aria-label="close">✕</button>' +
+        '<div class="ex-modal-illus">' + A.svgFor(ex.p) + '</div>' +
+        '<div class="ex-modal-name">' + L(ex.n) + '</div>' +
+        '<div class="ex-modal-reps">' + repsHtml(ex) + '</div>' +
+        '<div class="ex-modal-how"><h4>' + S().howTo + '</h4><p>' + desc + '</p></div>' +
+      '</div>';
+    m.hidden = false;
+    var close = function () { m.hidden = true; m.innerHTML = ''; };
+    $('#exModalClose').addEventListener('click', close);
+    $('#exModalBack').addEventListener('click', close);
   }
 
   /* ============================ ПЛЕЕР ============================ */
@@ -398,11 +421,14 @@
       }
 
       var restCls = (st.type === 'rest') ? ' rest' : '';
+      var canInfo = (st.type === 'work' || st.type === 'activity') && st.ex;
+      var howBtn = canInfo ? '<button class="pl-how" id="plHow">ⓘ ' + S().howTo + '</button>' : '';
       mid.innerHTML =
         '<div class="pl-phase ' + phaseCls + '">' + phaseTxt + '</div>' +
-        '<div class="pl-illus' + restCls + '">' + A.svgFor(pose) + '</div>' +
+        '<div class="pl-illus' + restCls + (canInfo ? ' tap' : '') + '"' + (canInfo ? ' id="plIllus"' : '') + '>' + A.svgFor(pose) + '</div>' +
         '<div class="pl-exname">' + name + '</div>' +
         '<div class="pl-reps">' + reps + '</div>' +
+        howBtn +
         '<div class="pl-ring">' +
           '<svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/>' +
           '<circle class="bar' + restCls + '" id="plRingBar" cx="60" cy="60" r="52"/></svg>' +
@@ -414,6 +440,11 @@
         controlsHtml();
 
       wireControls();
+      if (canInfo) {
+        var openIt = function () { openExerciseInfo(st.ex, curBlockKey); };
+        var h = $('#plHow'); if (h) h.addEventListener('click', openIt);
+        var il = $('#plIllus'); if (il) il.addEventListener('click', openIt);
+      }
       updateRing(1);
     }
 

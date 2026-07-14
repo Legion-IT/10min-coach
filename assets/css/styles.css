@@ -149,6 +149,35 @@ main {
 .shuffle-btn:active { transform: scale(.94); }
 .shuffle-btn span { color: var(--muted); }
 .exlist { margin-bottom: 22px; }
+
+/* карточка «как делать» */
+.ex-i { flex: none; color: var(--muted); opacity: .5; font-size: 15px; margin-right: 1px; }
+.ex-modal { position: fixed; inset: 0; z-index: 80; display: flex; align-items: flex-end; justify-content: center; --accent: var(--brand); }
+.ex-modal.morning { --accent: var(--morning); } .ex-modal.day { --accent: var(--day); } .ex-modal.evening { --accent: var(--evening); }
+.ex-modal-back { position: absolute; inset: 0; background: rgba(0,0,0,.55); animation: fade .2s ease; }
+.ex-modal-card { position: relative; z-index: 1; width: 100%; max-width: 520px; background: var(--card2);
+  border-radius: 22px 22px 0 0; padding: 22px 20px calc(24px + var(--safe-b)); box-shadow: var(--shadow);
+  animation: slideUp .25s ease; text-align: center; }
+@media (min-width: 560px) { .ex-modal { align-items: center; } .ex-modal-card { border-radius: 22px; margin: 16px; } }
+.ex-modal-close { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,.09); color: var(--text); font-size: 16px; }
+.ex-modal-close:active { transform: scale(.92); }
+.ex-modal-illus { width: 128px; height: 128px; margin: 2px auto 4px; color: var(--accent);
+  filter: drop-shadow(0 6px 16px color-mix(in srgb, var(--accent) 28%, transparent)); }
+.ex-modal-illus svg { width: 100%; height: 100%; }
+.ex-modal-name { font-size: 20px; font-weight: 800; line-height: 1.2; padding: 0 24px; }
+.ex-modal-reps { color: var(--muted); font-size: 14px; margin-top: 3px; }
+.ex-modal-reps .side-tag { color: var(--accent); font-weight: 700; }
+.ex-modal-how { text-align: left; background: rgba(0,0,0,.22); border-radius: 14px; padding: 12px 14px; margin-top: 16px; }
+.ex-modal-how h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); }
+.ex-modal-how p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--text); }
+@keyframes fade { from { opacity: 0 } to { opacity: 1 } }
+
+/* кнопка «как делать» в плеере */
+.pl-how { background: rgba(255,255,255,.08); color: var(--muted); border-radius: 999px;
+  padding: 5px 13px; font-size: 12.5px; font-weight: 700; margin-top: 2px; }
+.pl-how:active { transform: scale(.94); }
+.pl-illus.tap { cursor: pointer; }
 .ex-card {
   display: flex; align-items: center; gap: 12px;
   background: var(--card); border-radius: 14px; padding: 10px 12px; margin-bottom: 8px;

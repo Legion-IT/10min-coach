@@ -274,9 +274,73 @@
 
   function pick(v, lang) { return (v && typeof v === 'object' && (v.ru !== undefined || v.en !== undefined)) ? (v[lang] || v.ru) : v; }
 
+  /* ---- Объяснения «как делать» (по английскому названию упражнения) ---- */
+  var DESC = {
+    'Sit-to-stand from bench': T('Сядьте на край лавочки, стопы на ширине таза. Встаньте, отталкиваясь пятками и сжимая ягодицы, затем медленно опуститесь обратно. Колени смотрят на носки, спина прямая.', 'Sit on the edge of the bench, feet hip-width. Stand up by pushing through your heels and squeezing your glutes, then lower back down slowly. Knees track over toes, back straight.'),
+    'Assisted shallow squat to bench': T('Держитесь за опору. Опускайтесь неглубоко, как будто садитесь на лавочку, слегка коснитесь её и встаньте. Вес на пятках, спина ровная.', 'Hold a support. Squat shallowly as if sitting toward the bench, lightly touch it and stand. Weight on your heels, back flat.'),
+    'Goblet squat (shallow)': T('Держите одну гантель у груди двумя руками. Присядьте неглубоко, разводя колени в стороны, корпус прямой; встаньте через пятки.', 'Hold one dumbbell at your chest with both hands. Squat shallowly with knees pushing out, torso upright; drive up through your heels.'),
+    'Box squat to bench': T('Приседайте, пока мягко не коснётесь лавочки, не заваливаясь назад, и сразу встаньте. Контролируйте спуск — не падайте на лавку.', 'Squat until you lightly touch the bench without collapsing back, then stand right up. Control the descent — don’t drop onto the bench.'),
+    'Glute bridge': T('Лягте на спину, колени согнуты, стопы на полу. Поднимите таз, сжимая ягодицы, до прямой линии плечи–бёдра, и медленно опуститесь.', 'Lie on your back, knees bent, feet flat. Lift your hips by squeezing your glutes until shoulders–hips form a straight line, then lower slowly.'),
+    'Single-leg glute bridge': T('Мост на одной ноге, вторую выпрямите или подтяните к груди. Поднимайте таз ровно, без перекоса. По 8–10 на ногу.', 'Bridge on one leg; extend or tuck the other. Lift your hips evenly, without tilting. 8–10 per leg.'),
+    'Glute bridge march': T('В верхней точке моста попеременно отрывайте стопы от пола, как марш, удерживая таз ровным.', 'At the top of the bridge, lift each foot off the floor in turn, like marching, keeping your hips level.'),
+    'Quadruped hip extension': T('На четвереньках отведите согнутую ногу назад и вверх, пяткой к потолку. Не прогибайте поясницу — работайте ягодицей.', 'On all fours, push one bent leg back and up, heel toward the ceiling. Don’t arch your lower back — drive with the glute.'),
+    'Calf raises': T('Стоя, медленно поднимитесь на носки как можно выше, задержитесь на секунду и плавно опуститесь. Держитесь за опору для баланса.', 'Standing, rise onto your toes as high as you can, pause a second, and lower slowly. Hold a support for balance.'),
+    'Single-leg calf raises': T('То же на одной ноге, придерживаясь за опору. По 10–12 на ногу.', 'Same on one leg, holding a support. 10–12 per leg.'),
+    'Seated calf raises': T('Сидя, поставьте гантели на колени и поднимайте пятки, вставая на носки. Мягкий вариант для коленей.', 'Seated, rest dumbbells on your knees and lift your heels onto your toes. A knee-friendly option.'),
+    'Lying straight-leg raise': T('Лёжа на спине, одна нога согнута. Поднимите прямую ногу до высоты согнутого колена и медленно опустите. Поясница прижата к полу.', 'Lie on your back, one knee bent. Raise the straight leg to the height of the bent knee and lower slowly. Keep your lower back pressed down.'),
+    'Lying bent-knee raise': T('Лёжа, поднимайте согнутую в колене ногу к груди и опускайте. Мягко для тазобедренного сустава.', 'Lying down, raise a bent knee toward your chest and lower. Gentle on the hips.'),
+    'Side-lying leg raise': T('Лёжа на боку, поднимайте верхнюю прямую ногу вверх и медленно опускайте. Корпус неподвижен.', 'Lying on your side, raise the top straight leg up and lower slowly. Keep your torso still.'),
+    'Single-leg balance': T('Стойте на одной ноге, вторую слегка приподнимите. Корпус ровный, взгляд в одну точку. 20–30 сек на ногу.', 'Stand on one leg, lift the other slightly. Torso tall, gaze fixed on one point. 20–30 sec per leg.'),
+    'Single-leg balance with support': T('То же, придерживаясь одним пальцем за опору. Постепенно уменьшайте поддержку.', 'Same, with one finger on a support. Gradually rely on it less.'),
+    'Single-leg knee-raise hold': T('Стоя на одной ноге, поднимите колено другой до уровня таза и удерживайте. 15–25 сек на ногу.', 'Standing on one leg, raise the other knee to hip height and hold. 15–25 sec per leg.'),
+    'Dumbbell bench press': T('Лёжа на лавочке, гантели над грудью. Опускайте до уровня груди, локти под ~45°, и выжимайте вверх. Таз не отрывайте.', 'Lie on the bench, dumbbells over your chest. Lower to chest level, elbows ~45°, then press up. Keep your hips down.'),
+    'Floor dumbbell press': T('То же лёжа на полу: локти касаются пола, что ограничивает амплитуду и бережёт плечи.', 'Same but on the floor: your elbows touch the floor, limiting the range and protecting the shoulders.'),
+    'Bench push-ups': T('Руки на лавочке чуть шире плеч, тело прямое. Опускайтесь, сгибая локти, и отжимайтесь. Чем выше опора — тем легче.', 'Hands on the bench a bit wider than shoulders, body straight. Lower by bending your elbows, then push up. The higher the surface, the easier.'),
+    'Lying dumbbell fly': T('Лёжа, руки с гантелями чуть согнуты. Разведите их в стороны по дуге до лёгкого растяжения груди и сведите обратно.', 'Lying down, arms slightly bent holding dumbbells. Open them out in an arc until you feel a light chest stretch, then bring them back together.'),
+    'One-arm dumbbell row': T('Упритесь одной рукой и коленом в лавочку, спина ровная. Тяните гантель к поясу, сводя лопатку, и опускайте. По 8–12 на руку.', 'Brace one hand and knee on the bench, back flat. Pull the dumbbell to your waist, squeezing the shoulder blade, then lower. 8–12 per arm.'),
+    'Bent-over dumbbell row': T('Наклонитесь вперёд со прямой спиной, гантели свисают. Тяните к поясу, сводя лопатки, и опускайте.', 'Hinge forward with a flat back, dumbbells hanging. Row them to your waist, squeezing your shoulder blades, then lower.'),
+    'Incline chest-supported row': T('Лягте грудью на наклонную лавочку. Тяните гантели к поясу — спина работает без нагрузки на поясницу.', 'Lie chest-down on an incline bench. Row the dumbbells to your waist — the back works without loading the lower back.'),
+    'Seated dumbbell press': T('Сидя, спина прямая, гантели у плеч. Выжмите вверх, не до полного замка локтей, и опустите. Поясницу не прогибайте.', 'Seated, back straight, dumbbells at your shoulders. Press up without fully locking the elbows, then lower. Don’t arch your lower back.'),
+    'Standing dumbbell press': T('То же стоя, корпус напряжён. Выжимайте вверх, не разворачивая рёбра.', 'Same standing, core braced. Press up without flaring your ribs.'),
+    'Arnold press (gentle)': T('Начните с гантелей у груди ладонями к себе, разворачивайте кисти и выжимайте вверх. Медленно и мягко.', 'Start with dumbbells at your chest, palms toward you; rotate your wrists and press up. Slow and gentle.'),
+    'Lateral raises': T('Стоя, руки чуть согнуты. Поднимайте гантели через стороны до уровня плеч и медленно опускайте. Не раскачивайтесь.', 'Standing, arms slightly bent. Raise the dumbbells out to shoulder height and lower slowly. Don’t swing.'),
+    'Front raises': T('Поднимайте гантели перед собой до уровня плеч и опускайте. Корпус неподвижен.', 'Raise the dumbbells in front of you to shoulder height and lower. Keep your torso still.'),
+    'Seated lateral raises': T('То же сидя — исключает раскачку, техника чище.', 'Same seated — removes momentum for cleaner form.'),
+    'Bent-over reverse fly': T('В наклоне со прямой спиной разводите гантели в стороны, сводя лопатки. Локти чуть согнуты.', 'Hinged over with a flat back, open the dumbbells out to the sides, squeezing your shoulder blades. Elbows slightly bent.'),
+    'Seated bent-over reverse fly': T('То же сидя, грудь к бёдрам. Работают задние дельты и середина спины.', 'Same seated, chest toward your thighs. Works the rear delts and mid-back.'),
+    'Hammer curls': T('Ладони смотрят друг на друга. Сгибайте руки, поднимая гантели к плечам, локти у корпуса; опускайте медленно.', 'Palms facing each other. Curl the dumbbells to your shoulders with elbows tucked in; lower slowly.'),
+    'Biceps curls': T('Ладони вперёд. Сгибайте руки к плечам, не раскачиваясь корпусом, и опускайте под контролем.', 'Palms forward. Curl to your shoulders without swinging your body, then lower under control.'),
+    'Seated curls': T('То же сидя — исключает читинг корпусом.', 'Same seated — removes body swing.'),
+    'Overhead triceps extension': T('Держите гантель двумя руками над головой. Опускайте её за голову, сгибая локти, и разгибайте. Локти смотрят вперёд.', 'Hold one dumbbell overhead with both hands. Lower it behind your head by bending your elbows, then extend. Elbows point forward.'),
+    'Seated overhead extension': T('То же сидя, спина прямая — устойчивее.', 'Same seated, back straight — more stable.'),
+    'Standing overhead extension': T('То же стоя, корпус напряжён.', 'Same standing, core braced.'),
+    'Romanian deadlift': T('Гантели у бёдер, колени чуть согнуты. Отводите таз назад, опуская гантели вдоль ног со прямой спиной, до растяжения задней поверхности бедра; вернитесь, сжимая ягодицы.', 'Dumbbells at your thighs, knees soft. Push your hips back, lowering the dumbbells along your legs with a flat back until you feel a hamstring stretch; return by squeezing your glutes.'),
+    'Good morning (gentle)': T('Гантель у груди или на плечах. Наклоняйтесь вперёд от таза со прямой спиной и выпрямляйтесь. Амплитуда небольшая.', 'Dumbbell at your chest or shoulders. Hinge forward from the hips with a flat back and stand tall. Keep the range small.'),
+    'Single-leg RDL (supported)': T('Держась за опору, наклоняйтесь вперёд, отводя одну ногу назад, спина прямая. По 8–10 на ногу.', 'Holding a support, hinge forward while extending one leg back, flat back. 8–10 per leg.'),
+    'Dead bug': T('Лёжа на спине, руки вверх, колени над тазом. Опускайте противоположную руку и ногу, поясница прижата к полу; вернитесь. По 8–10 на сторону.', 'Lie on your back, arms up, knees over hips. Lower the opposite arm and leg while keeping your lower back pressed down; return. 8–10 per side.'),
+    'Lying leg lowers': T('Лёжа, ноги вверх. Медленно опускайте ноги, не отрывая поясницу от пола, и поднимайте обратно.', 'Lying down, legs up. Slowly lower your legs without letting your lower back arch, then raise them back.'),
+    'Dead bug (arms only)': T('Как dead bug, но двигаются только руки — самый мягкий вариант для кора.', 'Like the dead bug but moving only the arms — the gentlest core option.'),
+    'Bird dog': T('На четвереньках вытяните противоположную руку и ногу параллельно полу, удержите баланс, вернитесь. Спина ровная. По 8–10 на сторону.', 'On all fours, extend the opposite arm and leg parallel to the floor, hold your balance, then return. Keep your back flat. 8–10 per side.'),
+    'Plank from knees': T('Упор на предплечья и колени, тело прямое от головы до колен. Напрягите живот, не проваливайте поясницу. 20–30 сек.', 'Support on forearms and knees, body straight from head to knees. Brace your abs, don’t let your hips sag. 20–30 sec.'),
+    'Forearm plank': T('Упор на предплечья и носки, тело прямое. Напрягите живот и ягодицы. 20–30 сек.', 'Support on forearms and toes, body straight. Brace your abs and glutes. 20–30 sec.'),
+    'Superman (gentle)': T('Лёжа на животе, одновременно приподнимите руки и ноги, вытягиваясь; задержитесь и опуститесь. Мягко, без рывка.', 'Lying face down, lift your arms and legs together, lengthening; hold briefly and lower. Gently, no jerking.'),
+    'Side plank from knees': T('На боку, упор на предплечье и колени, таз вверх, тело прямое. Держите. 15–25 сек на сторону.', 'On your side, support on forearm and knees, hips up, body straight. Hold. 15–25 sec per side.'),
+    'Side plank': T('То же с упором на стопы. Не проваливайте таз. 15–25 сек на сторону.', 'Same supported on your feet. Don’t let your hips drop. 15–25 sec per side.'),
+    'Marching with dumbbells': T('С гантелями в руках маршируйте на месте, поднимая колени, корпус прямой. 30–40 сек.', 'Holding dumbbells, march in place lifting your knees, torso tall. 30–40 sec.'),
+    'Marching in place': T('Маршируйте на месте в комфортном темпе, руки работают в такт. 40 сек.', 'March in place at a comfortable pace, arms swinging in rhythm. 40 sec.'),
+    'High-knee march (gentle)': T('Маршируйте, поднимая колени повыше, но без прыжков и рывков. 30–40 сек.', 'March lifting your knees higher, but no jumping or jerking. 30–40 sec.'),
+    'Slow walk': T('Спокойно ходите на месте или по комнате, восстанавливая дыхание. 40 сек.', 'Walk slowly in place or around the room, recovering your breath. 40 sec.'),
+    'Gentle stretch': T('Медленно потянитесь всем телом, дышите спокойно, без боли. 30–40 сек.', 'Stretch your whole body slowly, breathing calmly, no pain. 30–40 sec.'),
+    'Overhead reach stretch': T('Поднимите руки над головой и мягко тянитесь вверх, вытягивая позвоночник. 30–40 сек.', 'Reach your arms overhead and gently stretch up, lengthening your spine. 30–40 sec.'),
+    'Standing side bends': T('Стоя, мягко наклоняйтесь в стороны, растягивая бок. Без рывков. 30–40 сек.', 'Standing, gently bend side to side, stretching your flank. No bouncing. 30–40 sec.'),
+    'Easy walk or marching in place': T('Спокойная прогулка или ходьба на месте 10 минут — лёгкая активность для восстановления.', 'An easy 10-minute walk or marching in place — light activity for recovery.'),
+    'Shoulder circles, knee bends, calf stretches': T('Мягкая подвижность 10 минут: круги плечами, лёгкое сгибание/разгибание коленей, растяжка икр. Спокойно.', '10 minutes of gentle mobility: shoulder circles, light knee bends, calf stretches. Take it easy.')
+  };
+  function descFor(ex, lang) { var d = DESC[ex.n.en]; return d ? (d[lang] || d.ru) : ''; }
+
   window.APP = {
     svgFor: svgFor, POSES: POSES, POOL: POOL,
     WEEK: WEEK, BLOCK_KEYS: BLOCK_KEYS, BLOCK_LABELS: BLOCK_LABELS,
-    blockFor: blockFor, INFO: INFO, pick: pick
+    blockFor: blockFor, INFO: INFO, pick: pick, DESC: DESC, descFor: descFor
   };
 })();
