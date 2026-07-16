@@ -5,7 +5,6 @@ morning + midday + evening, **10 minutes each**. It tells you **what to do right
 weekday and time of day — and guides you through the sets with a **timer**, sound, voice and a picture
 for every exercise. Installs to your phone as an icon and **works offline**.
 
-> **🌐 Live:** <https://devops.legion-it.services/coach/>
 > **📦 Repo:** <https://github.com/Legion-IT/10min-coach>
 > **Bilingual** — Русский / English, toggle in the header (auto-detected, remembered).
 
@@ -50,16 +49,15 @@ Open <http://127.0.0.1:8010/>.
 > Opening the file directly (`file://`) has no offline/install support.
 
 ## Install on Android (icon on the Home screen)
-1. Open <https://devops.legion-it.services/coach/> in **Chrome** on the phone.
+1. Open the hosted app URL in **Chrome** on the phone.
 2. Menu (⋮) → **Install app** (or accept the prompt when it appears).
 3. A **10-min Coach** icon appears — it opens like a normal app, no address bar, works offline.
 
 **iPhone/Safari:** Share → **Add to Home Screen**.
 
 ## Hosting
-Deployed on the `legion-landings` VM (nginx + Cloudflare) at `/var/www/devops/coach/`.
-All paths are relative, so it also runs from a site root or any subfolder. To host elsewhere, copy the
-files to any **HTTPS** location (Netlify Drop, GitHub/Cloudflare Pages, or your own nginx).
+The app is static and all paths are relative, so it runs from a site root or any subfolder. Host the
+files on any **HTTPS** location — your own nginx, Netlify Drop, GitHub/Cloudflare Pages, etc.
 
 ## Credits
 - Program: the “30 minutes a day with dumbbells and a bench” poster.
