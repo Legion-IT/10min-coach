@@ -30,14 +30,38 @@
       P('M60 39 L51 62') + P('M60 39 L69 62') + DB(49, 66, 90) + DB(71, 66, 90) +
       P('M60 64 L54 92 L49 100') + P('M60 64 L66 92 L71 100') +
       '<path class="hint" d="M31 46 l7 -9 l7 9"/>' + '<path class="hint" d="M75 46 l7 -9 l7 9"/>',
+    toetraise: GR + H(60, 22) + P('M60 31 V64') +
+      P('M60 39 L47 58') + P('M60 39 L73 58') +
+      P('M60 64 L54 98 L43 98') + P('M60 64 L66 98 L82 98') +
+      '<path class="hint" d="M38 92 l7 -10 l7 10"/>' + '<path class="hint" d="M75 92 l7 -10 l7 10"/>',
     legraise: '<line class="gr" x1="16" y1="98" x2="106" y2="98"/>' + H(26, 84, 8) +
       P('M34 88 L78 91') + P('M78 91 L104 93') + P('M78 91 L64 58') + P('M41 88 L35 97'),
+    kneeext: GR + '<rect class="fig" x="44" y="64" width="48" height="8" rx="4"/>' +
+      P('M50 72 V100 M86 72 V100') + H(34, 42, 8) + P('M39 48 L56 66') +
+      P('M58 68 L80 80 L104 80') + P('M57 68 L66 96') +
+      '<path class="hint" d="M89 70 l13 10 l-13 10"/>',
+    heelslide: '<line class="gr" x1="16" y1="98" x2="108" y2="98"/>' + H(25, 84, 8) +
+      P('M34 88 L68 91') + P('M68 91 L84 75 L101 96') + P('M64 91 L96 94') +
+      '<path class="hint" d="M75 84 l18 0 M93 84 l-6 -5 M93 84 l-6 5"/>',
+    clamshell: '<line class="gr" x1="16" y1="100" x2="108" y2="100"/>' + H(28, 80, 8) +
+      P('M36 84 L70 89') + P('M70 89 L94 98') + P('M70 89 L91 72') + P('M70 89 L88 92') +
+      '<path class="hint" d="M83 76 a16 16 0 0 1 18 -4"/>',
+    hipabduction: GR + H(58, 23) + P('M58 32 V63') + P('M58 63 L53 100') +
+      P('M58 63 L88 73 L99 83') + P('M58 41 L43 50') + P('M58 41 L75 42') +
+      '<path class="hint" d="M83 63 l18 17 M101 80 l-8 -1 M101 80 l-3 -8"/>',
+    hipadduction: '<line class="gr" x1="16" y1="100" x2="108" y2="100"/>' + H(28, 80, 8) +
+      P('M36 84 L72 91') + P('M72 91 L94 76') + P('M71 91 L98 96') + P('M54 88 L70 66') +
+      '<path class="hint" d="M58 77 l16 14 M74 91 l-8 -1 M74 91 l-2 -8"/>',
     press: '<rect class="fig" x="22" y="92" width="66" height="8" rx="4"/>' + H(28, 84, 8) +
       P('M37 88 L72 90') + P('M72 90 L85 82 L89 99') +
       P('M46 88 L46 62') + P('M58 90 L58 64') + DB(46, 60, 90) + DB(58, 62, 90),
     fly: '<rect class="fig" x="22" y="92" width="66" height="8" rx="4"/>' + H(28, 84, 8) +
       P('M37 88 L72 90') + P('M72 90 L85 82 L89 99') +
       P('M47 88 L38 66') + DB(36, 63) + P('M59 90 L68 66') + DB(70, 63),
+    pullover: '<rect class="fig" x="22" y="92" width="66" height="8" rx="4"/>' + H(28, 84, 8) +
+      P('M37 88 L72 90') + P('M72 90 L85 82 L89 99') +
+      P('M49 88 L41 55 L31 42') + P('M58 89 L50 55 L40 42') + DB(35, 42, -25) +
+      '<path class="hint" d="M39 51 a20 20 0 0 1 18 10"/>',
     onearmrow: GR + '<rect class="fig" x="60" y="66" width="46" height="8" rx="4"/>' +
       P('M68 74 V100 M98 74 V100') + H(32, 42, 8) +
       P('M39 46 L72 57') + P('M65 54 L74 68') + P('M53 51 L55 63') + DB(55, 68, 90) +
@@ -56,6 +80,10 @@
     deadbug: '<line class="gr" x1="16" y1="99" x2="106" y2="99"/>' + H(28, 86, 8) +
       P('M36 90 L66 92') + P('M46 90 L39 63') + P('M53 91 L59 97') +
       P('M66 92 L71 67 L85 65') + P('M60 92 L92 94'),
+    crunch: '<line class="gr" x1="16" y1="99" x2="106" y2="99"/>' + H(36, 78, 8) +
+      P('M43 83 L67 91') + P('M67 91 L86 78 L96 98') + P('M61 91 L93 94') +
+      P('M38 81 L31 68') + P('M39 80 L50 69') +
+      '<path class="hint" d="M49 76 a18 18 0 0 0 15 12"/>',
     birddog: GR + P('M46 56 L78 56') + H(37, 54, 8) +
       P('M48 56 L46 95') + P('M78 56 L83 80 L81 95') + P('M46 56 L21 50') + P('M78 56 L103 50'),
     superman: '<line class="gr" x1="14" y1="97" x2="106" y2="97"/>' + H(26, 80, 8) +
@@ -80,11 +108,22 @@
       P('M60 40 L43 47') + P('M60 40 L77 47'),
     stretch: GR + H(60, 26) + P('M60 35 V68') + P('M60 68 L54 100') + P('M60 68 L66 100') +
       P('M60 40 L51 18') + P('M60 40 L69 18'),
+    sidebend: GR + H(57, 26) + P('M57 35 C48 48 48 59 55 70') +
+      P('M55 70 L50 100') + P('M55 70 L68 100') + P('M53 43 L39 59') + P('M61 43 L77 33') +
+      DB(38, 63, 90) + '<path class="hint" d="M72 35 a25 25 0 0 0 -17 33"/>',
+    rotation: GR + H(58, 32) + '<rect class="fig" x="36" y="72" width="46" height="8" rx="4"/>' +
+      P('M44 80 V100 M76 80 V100') + P('M58 41 V68') + P('M48 51 L76 51') +
+      '<path class="hint" d="M39 41 a25 15 0 0 1 42 0"/>' + '<path class="hint" d="M81 41 l-8 -1 l4 -7"/>',
+    catcow: GR + H(34, 60, 8) + P('M43 63 C55 47 75 47 88 63') +
+      P('M48 65 L46 98') + P('M84 65 L86 98') + P('M45 64 L30 78') + P('M88 64 L103 78') +
+      '<path class="hint" d="M55 78 C65 88 78 88 88 78"/>',
     mobility: GR + H(60, 26) + P('M60 35 V66') + P('M60 66 L54 100') + P('M60 66 L66 100') +
       P('M60 41 L75 30') + P('M60 41 L46 53') +
       '<path class="hint" d="M78 22 a11 11 0 1 1 -9 4"/>' + '<path class="hint" d="M69 24 l0 7 l7 -1"/>',
     walk: GR + H(58, 22) + P('M58 31 V60') + P('M58 60 L68 85 L66 100') + P('M58 60 L49 85 L47 100') +
-      P('M58 39 L50 53') + P('M58 39 L66 51')
+      P('M58 39 L50 53') + P('M58 39 L66 51'),
+    farmer: GR + H(60, 22) + P('M60 31 V65') + P('M60 65 L54 100') + P('M60 65 L66 100') +
+      P('M54 42 L42 70') + P('M66 42 L78 70') + DB(42, 76, 90) + DB(78, 76, 90)
   };
 
   function svgFor(pose) {
@@ -96,7 +135,7 @@
   /* ---- Упражнение / текст ---- */
   function E(nru, nen, rru, ren, p, o) {
     o = o || {};
-    return { n: { ru: nru, en: nen }, r: { ru: rru, en: ren }, p: p, s: o.s || null, side: !!o.side };
+    return { n: { ru: nru, en: nen }, r: { ru: rru, en: ren }, p: p, s: o.s || null, side: !!o.side, m: o.m || null };
   }
   function T(ru, en) { return { ru: ru, en: en }; }
 
@@ -193,26 +232,130 @@
     stretch: [
       E('Спокойная растяжка', 'Gentle stretch', '30–40 сек', '30–40 sec', 'stretch', { s: 40 }),
       E('Растяжка над головой', 'Overhead reach stretch', '30–40 сек', '30–40 sec', 'stretch', { s: 40 }),
-      E('Наклоны в стороны', 'Standing side bends', '30–40 сек', '30–40 sec', 'stretch', { s: 40 })
+      E('Наклоны в стороны', 'Standing side bends', '30–40 сек', '30–40 sec', 'sidebend', { s: 40 })
+    ],
+    quads: [
+      E('Вставание с лавочки', 'Sit-to-stand from bench', '6–8', '6–8', 'squat'),
+      E('Неглубокий присед к лавочке с опорой', 'Assisted shallow squat to bench', '6–8', '6–8', 'squat'),
+      E('Гоблет-присед к лавочке', 'Goblet box squat', '6–10', '6–10', 'squat'),
+      E('Разгибание колена сидя', 'Seated knee extension', '8–10 / нога', '8–10 / leg', 'kneeext', { side: true })
+    ],
+    hamstrings: [
+      E('Румынская тяга', 'Romanian deadlift', '6–10', '6–10', 'rdl'),
+      E('Гуд-морнинг (мягкий)', 'Good morning (gentle)', '6–10', '6–10', 'rdl'),
+      E('Скольжение пятками лёжа', 'Heel slides', '8–10', '8–10', 'heelslide'),
+      E('Мост с пятками дальше от таза', 'Long-lever glute bridge', '8–10', '8–10', 'heelslide')
+    ],
+    gluteMax: [
+      E('Ягодичный мост', 'Glute bridge', '8–12', '8–12', 'bridge'),
+      E('Ягодичный мост с гантелью', 'Weighted glute bridge', '8–12', '8–12', 'bridge'),
+      E('Ягодичный мост на одной ноге', 'Single-leg glute bridge', '6–8 / нога', '6–8 / leg', 'bridge', { side: true }),
+      E('Отведение ноги на четвереньках', 'Quadruped hip extension', '8–10 / нога', '8–10 / leg', 'birddog', { side: true })
+    ],
+    gluteMed: [
+      E('Отведение ноги лёжа на боку', 'Side-lying leg raise', '8–10 / нога', '8–10 / leg', 'legraise', { side: true }),
+      E('Ракушка лёжа на боку', 'Side-lying clamshell', '8–12 / сторона', '8–12 / side', 'clamshell', { side: true }),
+      E('Отведение бедра стоя с опорой', 'Supported standing hip abduction', '8–10 / нога', '8–10 / leg', 'hipabduction', { side: true }),
+      E('Боковой шаг без резинки', 'Bodyweight side step', '8–10 / сторона', '8–10 / side', 'hipabduction', { side: true })
+    ],
+    adductors: [
+      E('Приведение ноги лёжа на боку', 'Side-lying hip adduction', '8–10 / нога', '8–10 / leg', 'hipadduction', { side: true }),
+      E('Сжимание подушки коленями', 'Pillow knee squeeze', '20–30 сек', '20–30 sec', 'hipadduction', { s: 25 }),
+      E('Узкая стойка: мягкое вставание', 'Narrow-stance sit-to-stand', '6–8', '6–8', 'squat')
+    ],
+    tibialis: [
+      E('Подъём носков стоя у стены', 'Standing toe raises', '10–15', '10–15', 'toetraise'),
+      E('Подъём носков сидя', 'Seated toe raises', '12–15', '12–15', 'toetraise'),
+      E('Медленный перекат пятка–носок', 'Slow heel-to-toe rocks', '30–40 сек', '30–40 sec', 'toetraise', { s: 35 })
+    ],
+    lats: [
+      E('Тяга одной гантели к поясу', 'One-arm dumbbell row', '6–10 / рука', '6–10 / arm', 'onearmrow', { side: true }),
+      E('Пуловер с гантелью лёжа', 'Dumbbell pullover', '8–10', '8–10', 'pullover'),
+      E('Тяга локтями назад лёжа грудью на лавке', 'Chest-supported elbow row', '8–10', '8–10', 'bentrow')
+    ],
+    midBack: [
+      E('Тяга гантелей в наклоне', 'Bent-over dumbbell row', '8–10', '8–10', 'bentrow'),
+      E('Тяга гантелей грудью на наклонной лавочке', 'Incline chest-supported row', '8–10', '8–10', 'bentrow'),
+      E('Сведение лопаток с лёгкими гантелями', 'Dumbbell scapular retraction', '10–12', '10–12', 'reversefly')
+    ],
+    sideDelts: [
+      E('Подъём гантелей в стороны', 'Lateral raises', '8–10', '8–10', 'lateral'),
+      E('Подъём в стороны сидя', 'Seated lateral raises', '8–10', '8–10', 'lateral'),
+      E('Частичные подъёмы в стороны', 'Partial lateral raises', '10–12', '10–12', 'lateral')
+    ],
+    lowerAbs: [
+      E('Обратное скручивание', 'Reverse crunch', '8–10', '8–10', 'crunch'),
+      E('Опускание ног лёжа', 'Lying leg lowers', '6–10', '6–10', 'deadbug'),
+      E('Пятка к полу лёжа', 'Dead bug heel taps', '8–10 / сторона', '8–10 / side', 'deadbug', { side: true })
+    ],
+    abs: [
+      E('Dead bug', 'Dead bug', '6–8 / сторона', '6–8 / side', 'deadbug', { side: true }),
+      E('Скручивание с малой амплитудой', 'Small-range crunch', '8–10', '8–10', 'crunch'),
+      E('Планка с колен', 'Plank from knees', '20–30 сек', '20–30 sec', 'plank', { s: 25 }),
+      E('Планка', 'Forearm plank', '20–30 сек', '20–30 sec', 'plank', { s: 25 })
+    ],
+    obliques: [
+      E('Боковая планка с колен', 'Side plank from knees', '15–25 сек / сторона', '15–25 sec / side', 'sideplank', { s: 20, side: true }),
+      E('Боковая планка', 'Side plank', '15–25 сек / сторона', '15–25 sec / side', 'sideplank', { s: 20, side: true }),
+      E('Наклоны в стороны с гантелью', 'Dumbbell side bends', '8–10 / сторона', '8–10 / side', 'sidebend', { side: true }),
+      E('Поворот корпуса сидя без рывков', 'Seated trunk rotations', '8–10 / сторона', '8–10 / side', 'rotation', { side: true })
+    ],
+    spinalErectors: [
+      E('Bird dog', 'Bird dog', '6–8 / сторона', '6–8 / side', 'birddog', { side: true }),
+      E('Супермен (мягкий)', 'Superman (gentle)', '8–10', '8–10', 'superman'),
+      E('Гуд-морнинг без веса', 'Bodyweight good morning', '8–10', '8–10', 'rdl')
+    ],
+    mobility: [
+      E('Круги плечами и тазом', 'Shoulder and hip circles', '30–40 сек', '30–40 sec', 'mobility', { s: 40 }),
+      E('Кошка-корова', 'Cat-cow', '30–40 сек', '30–40 sec', 'catcow', { s: 40 }),
+      E('Мягкая разминка коленей', 'Gentle knee mobility', '30–40 сек', '30–40 sec', 'mobility', { s: 40 })
+    ],
+    loadedCarry: [
+      E('Марш с гантелями на месте', 'Marching with dumbbells', '30–40 сек', '30–40 sec', 'march', { s: 40 }),
+      E('Фермерское удержание стоя', 'Farmer hold', '30–40 сек', '30–40 sec', 'farmer', { s: 40 }),
+      E('Медленная ходьба с гантелями', 'Slow farmer walk', '30–40 сек', '30–40 sec', 'farmer', { s: 40 })
     ]
   };
+
+  var CAT_MUSCLE = {
+    squat: T('квадрицепс', 'quads'), quads: T('квадрицепс', 'quads'),
+    glutes: T('ягодицы', 'glutes'), gluteMax: T('большая ягодичная', 'glute max'),
+    gluteMed: T('средняя ягодичная', 'glute med'), adductors: T('приводящие бедра', 'adductors'),
+    calves: T('икры', 'calves'), tibialis: T('передняя голень', 'tibialis'),
+    legRaise: T('сгибатели бедра', 'hip flexors'), balance: T('стабилизаторы', 'stabilizers'),
+    chest: T('грудь', 'chest'), row: T('спина', 'back'), lats: T('широчайшие', 'lats'), midBack: T('середина спины', 'mid-back'),
+    shoulderPress: T('плечи', 'shoulders'), lateral: T('средняя дельта', 'side delts'), sideDelts: T('средняя дельта', 'side delts'),
+    rearDelt: T('задняя дельта', 'rear delts'), biceps: T('бицепс', 'biceps'), triceps: T('трицепс', 'triceps'),
+    hinge: T('задняя цепь', 'posterior chain'), hamstrings: T('задняя поверхность бедра', 'hamstrings'),
+    coreAntiExt: T('пресс', 'abs'), coreStability: T('кор', 'core'), lowerAbs: T('нижний пресс', 'lower abs'),
+    abs: T('пресс', 'abs'), sideCore: T('косые мышцы', 'obliques'), obliques: T('косые мышцы', 'obliques'),
+    spinalErectors: T('разгибатели спины', 'spinal erectors'),
+    carry: T('общая выносливость', 'conditioning'), loadedCarry: T('хват и корпус', 'grip + core'),
+    stretch: T('растяжка', 'stretch'), mobility: T('подвижность', 'mobility')
+  };
+
+  Object.keys(POOL).forEach(function (cat) {
+    (POOL[cat] || []).forEach(function (ex) {
+      if (!ex.m) ex.m = CAT_MUSCLE[cat] || T('всё тело', 'full body');
+    });
+  });
 
   /* ---- Блоки-шаблоны: slots = группы мышц, из которых набираются упражнения ---- */
   var LETTERS = {
     A: {
-      morning: { title: T('Мягкие ноги и колени', 'Gentle legs & knees'), slots: ['squat', 'glutes', 'calves', 'legRaise'] },
-      day: { title: T('Грудь и спина', 'Chest & back'), slots: ['chest', 'row', 'chest', 'row'] },
-      evening: { title: T('Задняя цепь и корпус', 'Posterior chain & core'), slots: ['hinge', 'coreAntiExt', 'coreStability', 'carry'] }
+      morning: { title: T('Ноги: все основные мышцы', 'Legs: all major muscles'), slots: ['quads', 'hamstrings', 'gluteMax', 'gluteMed', 'adductors', 'calves', 'tibialis', 'balance'] },
+      day: { title: T('Верх: жим, тяга, плечи, руки', 'Upper: push, pull, shoulders, arms'), slots: ['chest', 'lats', 'midBack', 'shoulderPress', 'sideDelts', 'rearDelt', 'triceps', 'biceps'] },
+      evening: { title: T('Пресс, спина и задняя цепь', 'Abs, back & posterior chain'), slots: ['abs', 'lowerAbs', 'obliques', 'spinalErectors', 'hamstrings', 'gluteMax', 'loadedCarry', 'mobility'] }
     },
     B: {
-      morning: { title: T('Мягкие ноги и баланс', 'Gentle legs & balance'), slots: ['squat', 'glutes', 'balance', 'calves'] },
-      day: { title: T('Плечи и верх спины', 'Shoulders & upper back'), slots: ['shoulderPress', 'rearDelt', 'lateral', 'row'] },
-      evening: { title: T('Руки и корпус', 'Arms & core'), slots: ['biceps', 'triceps', 'sideCore', 'coreAntiExt'] }
+      morning: { title: T('Колени, таз и голень', 'Knees, hips & lower leg'), slots: ['mobility', 'quads', 'gluteMed', 'adductors', 'calves', 'tibialis', 'abs', 'loadedCarry'] },
+      day: { title: T('Спина, грудь и плечевой пояс', 'Back, chest & shoulder girdle'), slots: ['lats', 'chest', 'midBack', 'rearDelt', 'sideDelts', 'shoulderPress', 'biceps', 'triceps'] },
+      evening: { title: T('Руки + пресс без повторов', 'Arms + abs without repeats'), slots: ['biceps', 'triceps', 'abs', 'lowerAbs', 'obliques', 'spinalErectors', 'gluteMax', 'stretch'] }
     },
     C: {
-      morning: { title: T('Колени + подвижность', 'Knees + mobility'), slots: ['carry', 'squat', 'legRaise', 'balance'] },
-      day: { title: T('Лёгкий верх тела', 'Light upper body'), slots: ['chest', 'row', 'chest', 'rearDelt'] },
-      evening: { title: T('Корпус и движение', 'Core & movement'), slots: ['coreStability', 'glutes', 'carry', 'stretch'] }
+      morning: { title: T('Лёгкий полный низ тела', 'Light full lower body'), slots: ['mobility', 'quads', 'hamstrings', 'gluteMax', 'gluteMed', 'adductors', 'calves', 'balance'] },
+      day: { title: T('Лёгкий полный верх тела', 'Light full upper body'), slots: ['chest', 'lats', 'midBack', 'sideDelts', 'rearDelt', 'biceps', 'triceps', 'mobility'] },
+      evening: { title: T('Корпус: пресс, косые, поясница', 'Core: abs, obliques, low back'), slots: ['abs', 'lowerAbs', 'obliques', 'spinalErectors', 'gluteMax', 'loadedCarry', 'mobility', 'stretch'] }
     },
     REC: {
       morning: { title: T('Спокойная активность', 'Easy activity'), mode: 'single', ex: [
@@ -221,8 +364,8 @@
       day: { title: T('Мягкая подвижность', 'Gentle mobility'), mode: 'single', ex: [
         E('Круги плечами, сгибание/разгибание коленей, растяжка икр', 'Shoulder circles, knee bends, calf stretches', '10 минут', '10 min', 'mobility', { s: 600 })
       ] },
-      evening: { title: T('Один лёгкий круг', 'One easy round'), mode: 'circuit', rounds: 1, warmup: 30,
-        slots: ['glutes', 'coreStability', 'balance', 'carry'] }
+      evening: { title: T('Один лёгкий круг на всё тело', 'One easy full-body round'), mode: 'circuit', rounds: 1, warmup: 30,
+        slots: ['mobility', 'gluteMax', 'abs', 'obliques', 'balance', 'loadedCarry'] }
     }
   };
 
@@ -243,36 +386,37 @@
 
   var INFO = {
     ru: {
-      structure: '1 мин разминка · 4 упражнения по 2 подхода подряд · короткий отдых',
+      structure: '1 мин разминка · 8 разных мышечных слотов · 1 чистый подход на упражнение',
       weight: 'Лёгкий / средний вес. Оставляйте 2–3 повтора в запасе.',
       knees: 'Колени: начинаем очень мягко — без прыжков, глубоких приседаний и выпадов. Если боль — уменьшите амплитуду, используйте опору или пропустите упражнение.',
       tempo: 'Темп медленный и контролируемый.',
       progress: [
-        'Неделя 1: делайте спокойно, учите технику.',
-        'Неделя 2: делайте оба подхода в каждом упражнении.',
-        'Когда стало легко — добавьте 1–2 повтора или немного веса.',
-        'Кнопка 🎲 «Другие» подберёт другие упражнения на те же мышцы.'
+        'Неделя 1: один аккуратный подход, без гонки за количеством.',
+        'Неделя 2: сохраняйте тот же объём, но делайте движения чище и ровнее.',
+        'Когда стало легко — добавьте 1–2 повтора, 5 секунд удержания или немного веса.',
+        'Кнопка 🎲 «Другие» подберёт другие упражнения на те же мышцы, без ломки структуры.'
       ],
-      form: ['Дышите спокойно.', 'Спина ровная.', 'Качество важнее скорости.', 'Боль в мышцах допустима, резкая боль в колене — нет.'],
+      form: ['Дышите спокойно.', 'Спина ровная.', 'Живот слегка напряжён, особенно в упражнениях на пресс.', 'Качество важнее скорости.', 'Боль в мышцах допустима, резкая боль в колене — нет.'],
       stop: ['Острая боль в колене', 'Отёк', 'Заклинивание сустава', 'Ощущение, что колено подворачивается', 'При необходимости обратитесь к специалисту']
     },
     en: {
-      structure: '1-min warm-up · 4 exercises × 2 sets back-to-back · short rest',
+      structure: '1-min warm-up · 8 distinct muscle slots · 1 clean set per exercise',
       weight: 'Light / medium weight. Leave 2–3 reps in reserve.',
       knees: 'Knees: start very gently — no jumping, deep squats or lunges. If it hurts, reduce the range, use support, or skip the exercise.',
       tempo: 'Slow, controlled tempo.',
       progress: [
-        'Week 1: go easy, learn the technique.',
-        'Week 2: do both sets of every exercise.',
-        'When it feels easy, add 1–2 reps or a little weight.',
-        'The 🎲 “Shuffle” button swaps in different exercises for the same muscles.'
+        'Week 1: one careful set, no chasing reps.',
+        'Week 2: keep the same volume, but make each rep cleaner and steadier.',
+        'When it feels easy, add 1–2 reps, 5 seconds of holding, or a little weight.',
+        'The 🎲 “Shuffle” button swaps in different exercises for the same muscles without breaking the structure.'
       ],
-      form: ['Breathe calmly.', 'Keep your back straight.', 'Quality over speed.', 'Muscle soreness is fine; sharp knee pain is not.'],
+      form: ['Breathe calmly.', 'Keep your back straight.', 'Brace your abs lightly, especially on core work.', 'Quality over speed.', 'Muscle soreness is fine; sharp knee pain is not.'],
       stop: ['Sharp knee pain', 'Swelling', 'Joint locking', 'A feeling the knee gives way', 'See a specialist if needed']
     }
   };
 
   function pick(v, lang) { return (v && typeof v === 'object' && (v.ru !== undefined || v.en !== undefined)) ? (v[lang] || v.ru) : v; }
+  function muscleFor(ex, lang) { return ex && ex.m ? pick(ex.m, lang) : ''; }
 
   /* ---- Объяснения «как делать» (по английскому названию упражнения) ---- */
   var DESC = {
@@ -333,6 +477,35 @@
     'Gentle stretch': T('Медленно потянитесь всем телом, дышите спокойно, без боли. 30–40 сек.', 'Stretch your whole body slowly, breathing calmly, no pain. 30–40 sec.'),
     'Overhead reach stretch': T('Поднимите руки над головой и мягко тянитесь вверх, вытягивая позвоночник. 30–40 сек.', 'Reach your arms overhead and gently stretch up, lengthening your spine. 30–40 sec.'),
     'Standing side bends': T('Стоя, мягко наклоняйтесь в стороны, растягивая бок. Без рывков. 30–40 сек.', 'Standing, gently bend side to side, stretching your flank. No bouncing. 30–40 sec.'),
+    'Goblet box squat': T('Держите гантель у груди и садитесь к лавочке до лёгкого касания. Колени идут по линии носков, корпус высокий, вставайте через пятки.', 'Hold a dumbbell at your chest and sit toward the bench until you lightly touch it. Knees track over toes, torso tall, stand through your heels.'),
+    'Seated knee extension': T('Сидя на лавочке, медленно выпрямите одно колено, напрягите переднюю поверхность бедра и опустите. Не бросайте ногу вниз.', 'Sitting on the bench, slowly straighten one knee, tighten the front thigh, then lower. Do not drop the leg.'),
+    'Heel slides': T('Лёжа на спине, пятки на полу. Медленно подтягивайте пятки к тазу и возвращайте назад, чувствуя заднюю поверхность бедра.', 'Lie on your back with heels on the floor. Slowly slide your heels toward your hips and back, feeling your hamstrings work.'),
+    'Long-lever glute bridge': T('Поставьте пятки чуть дальше от таза, чем в обычном мосте. Поднимайте таз, удерживая рёбра вниз: больше работы для задней поверхности бедра.', 'Place your heels a bit farther from your hips than in a normal bridge. Lift your hips with ribs down: more hamstring work.'),
+    'Weighted glute bridge': T('Положите гантель на таз, удерживая её руками. Поднимайте таз за счёт ягодиц, не прогибая поясницу.', 'Place a dumbbell on your hips and hold it. Lift through your glutes without arching your lower back.'),
+    'Side-lying clamshell': T('Лёжа на боку, колени согнуты. Стопы вместе, верхнее колено открывается вверх как ракушка. Таз не заваливайте назад.', 'Lie on your side with knees bent. Feet stay together while the top knee opens like a clamshell. Do not roll your pelvis back.'),
+    'Supported standing hip abduction': T('Держась за опору, отведите прямую ногу в сторону и верните. Корпус остаётся высоким, носок смотрит вперёд.', 'Holding a support, move one straight leg out to the side and return. Torso stays tall, toes point forward.'),
+    'Bodyweight side step': T('Слегка согните колени и сделайте маленький шаг в сторону, затем приставьте вторую ногу. Двигайтесь мягко, без прыжков.', 'Bend knees slightly, take a small side step, then bring the other foot in. Move gently, no jumping.'),
+    'Side-lying hip adduction': T('Лёжа на боку, верхнюю ногу поставьте перед собой, нижнюю прямую поднимайте вверх. Работает внутренняя поверхность бедра.', 'Lie on your side, place the top leg in front, and lift the lower straight leg. Works the inner thigh.'),
+    'Pillow knee squeeze': T('Сидя или лёжа, зажмите подушку между коленями и мягко сжимайте. Дышите ровно, не задерживайте дыхание.', 'Sitting or lying down, place a pillow between your knees and squeeze gently. Breathe steadily, do not hold your breath.'),
+    'Narrow-stance sit-to-stand': T('Стопы чуть уже обычного. Встаньте с лавочки и сядьте обратно медленно, сохраняя колени мягкими и устойчивыми.', 'Feet a little narrower than usual. Stand from the bench and sit back down slowly, keeping knees soft and steady.'),
+    'Standing toe raises': T('Спиной к стене или держась за опору, поднимайте носки на себя, пятки остаются на полу. Контролируйте опускание.', 'With your back near a wall or holding support, lift your toes toward you while heels stay down. Control the lowering.'),
+    'Seated toe raises': T('Сидя, пятки на полу. Поднимайте носки вверх и медленно опускайте. Хорошо укрепляет переднюю часть голени.', 'Sitting, heels on the floor. Lift your toes up and lower slowly. Strengthens the front of the shin.'),
+    'Slow heel-to-toe rocks': T('Медленно перекатывайтесь с пяток на носки и обратно, держась за опору. Движение маленькое и плавное.', 'Slowly rock from heels to toes and back, holding support. Keep the movement small and smooth.'),
+    'Dumbbell pullover': T('Лёжа, держите одну гантель двумя руками над грудью. Медленно заведите её за голову до комфортной амплитуды и верните.', 'Lying down, hold one dumbbell with both hands over your chest. Slowly move it behind your head within a comfortable range and return.'),
+    'Chest-supported elbow row': T('Лягте грудью на лавочку. Тяните локти назад вдоль корпуса, представляя, что опускаете плечи от ушей.', 'Lie chest-down on the bench. Pull elbows back along your body, imagining your shoulders moving away from your ears.'),
+    'Dumbbell scapular retraction': T('В лёгком наклоне или лёжа грудью на лавке сведите лопатки, почти не сгибая локти, и отпустите. Амплитуда маленькая.', 'In a light hinge or chest-supported position, squeeze shoulder blades with almost straight elbows, then release. Small range.'),
+    'Partial lateral raises': T('Поднимайте гантели в стороны только до комфортной высоты. Плечи опущены, движение медленное.', 'Raise dumbbells out to the sides only to a comfortable height. Shoulders stay down, movement slow.'),
+    'Reverse crunch': T('Лёжа на спине, колени согнуты. Мягко подкрутите таз, подтягивая колени к себе, затем верните без рывка.', 'Lie on your back with knees bent. Gently curl your pelvis to bring knees toward you, then return without jerking.'),
+    'Dead bug heel taps': T('Лёжа, колени над тазом. По очереди касайтесь пяткой пола, сохраняя поясницу прижатой. Работает нижний пресс.', 'Lie with knees over hips. Tap one heel to the floor at a time while keeping your lower back down. Works lower abs.'),
+    'Small-range crunch': T('Лёжа, стопы на полу. Слегка поднимите лопатки, как будто рёбра тянутся к тазу, и медленно опуститесь. Шею не тяните.', 'Lie with feet on the floor. Lift shoulder blades slightly as ribs move toward hips, then lower slowly. Do not pull your neck.'),
+    'Dumbbell side bends': T('Держите лёгкую гантель в одной руке. Наклонитесь в сторону на небольшую амплитуду и вернитесь, не заваливая корпус вперёд.', 'Hold a light dumbbell in one hand. Bend sideways through a small range and return, without folding forward.'),
+    'Seated trunk rotations': T('Сидя, поверните корпус вправо и влево в комфортной амплитуде. Движение идёт от рёбер, таз остаётся устойчивым.', 'Sitting, rotate your torso right and left within a comfortable range. Move from the ribs while hips stay steady.'),
+    'Bodyweight good morning': T('Руки на груди. Отведите таз назад, наклонитесь с ровной спиной и вернитесь. Это мягкая тренировка поясницы и задней цепи.', 'Hands at chest. Push hips back, hinge with a flat back, and return. A gentle drill for low back and posterior chain.'),
+    'Shoulder and hip circles': T('Делайте медленные круги плечами и тазом. Амплитуда комфортная, задача — разогреть суставы.', 'Make slow circles with shoulders and hips. Comfortable range; the goal is to warm the joints.'),
+    'Cat-cow': T('На четвереньках мягко округляйте и прогибайте спину, двигаясь вместе с дыханием. Без давления на поясницу.', 'On all fours, gently round and arch your back with your breath. No forcing the lower back.'),
+    'Gentle knee mobility': T('Держась за опору, мягко сгибайте и разгибайте колени в небольшой амплитуде. Колени смотрят туда же, куда носки.', 'Holding support, gently bend and straighten your knees through a small range. Knees point the same way as toes.'),
+    'Farmer hold': T('Встаньте прямо с гантелями в руках. Плечи вниз, живот слегка напряжён, стойте ровно и дышите.', 'Stand tall holding dumbbells. Shoulders down, abs lightly braced, stand steady and breathe.'),
+    'Slow farmer walk': T('Идите медленно с гантелями, корпус высокий, шаги тихие. Если мало места — маршируйте на месте.', 'Walk slowly with dumbbells, torso tall, quiet steps. If space is limited, march in place.'),
     'Easy walk or marching in place': T('Спокойная прогулка или ходьба на месте 10 минут — лёгкая активность для восстановления.', 'An easy 10-minute walk or marching in place — light activity for recovery.'),
     'Shoulder circles, knee bends, calf stretches': T('Мягкая подвижность 10 минут: круги плечами, лёгкое сгибание/разгибание коленей, растяжка икр. Спокойно.', '10 minutes of gentle mobility: shoulder circles, light knee bends, calf stretches. Take it easy.')
   };
@@ -341,6 +514,6 @@
   window.APP = {
     svgFor: svgFor, POSES: POSES, POOL: POOL,
     WEEK: WEEK, BLOCK_KEYS: BLOCK_KEYS, BLOCK_LABELS: BLOCK_LABELS,
-    blockFor: blockFor, INFO: INFO, pick: pick, DESC: DESC, descFor: descFor
+    blockFor: blockFor, INFO: INFO, pick: pick, muscleFor: muscleFor, DESC: DESC, descFor: descFor
   };
 })();

@@ -12,10 +12,11 @@ for every exercise. Installs to your phone as an icon and **works offline**.
 ## Features
 - **Two languages (RU / EN)** — header toggle, auto-detected from the browser, remembered.
 - **“Now”** — auto-selects the weekday (Mon–Sun) and block (morning / midday / evening). Any day/block is browsable.
-- **Guided timer** — warm-up → each exercise’s **2 sets back-to-back** (set 1 → rest → set 2 → rest → next exercise), with a countdown ring, progress bar and set dots.
+- **Guided timer** — warm-up → **one clean set across 8 different muscle slots**, with a countdown ring, progress bar and set dots.
 - **Sound + voice (RU/EN)** — 3-2-1 cues, “switch sides”, spoken exercise names. Toggle 🔊.
 - **Background music** — original looping klezmer/freylekhs tracks (instrumental, generated with ElevenLabs), one per time-of-day, playing quietly under the workout. Toggle 🎵.
-- **22 exercise illustrations** — crisp inline SVG, dumbbells with round plates, time-of-day accent colors.
+- **50+ exercise variants** grouped by real target muscles: quads, hamstrings, glutes, adductors, calves, tibialis, chest, lats, mid-back, delts, biceps, triceps, abs, obliques, spinal erectors, grip/core and mobility.
+- **Exercise illustrations + muscle badges** — crisp inline SVG, dumbbells with round plates, target-muscle labels, time-of-day accent colors.
 - **Keeps the screen on** (Wake Lock), **fully offline** after first load (service worker).
 - **Light days** (Wed/Sat) and **recovery** (Sun) with their own flows.
 - Reference: how to progress, technique, when to stop, knee care.

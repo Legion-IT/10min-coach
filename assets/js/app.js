@@ -11,7 +11,7 @@
   };
 
   /* ---------- Тайминги ---------- */
-  var WORK = 45, WORK_SIDE = 50, REST = 15, REST_EX = 20, WARMUP = 60, SETS = 2;
+  var WORK = 45, WORK_SIDE = 50, REST = 15, REST_EX = 20, WARMUP = 60, SETS = 1;
 
   /* ---------- Язык ---------- */
   function detectLang() {
@@ -41,7 +41,7 @@
       warmName: 'Разминка', warmSub: 'Лёгкие движения, разогрев суставов',
       restName: 'Отдых', restSub: 'Восстановите дыхание',
       next: 'Дальше:', lastEx: 'Последнее упражнение 💪', easyEnjoy: 'Спокойно и в удовольствие',
-      exOf: function (i, m, r, rs) { return 'Упражнение ' + i + ' из ' + m + ' · подход ' + r + '/' + rs; },
+      exOf: function (i, m, r, rs) { return 'Упражнение ' + i + ' из ' + m + (rs > 1 ? ' · подход ' + r + '/' + rs : ''); },
       switchSides: 'Смените сторону',
       back: 'Назад', pause: 'Пауза', resume: 'Продолжить', skip: 'Пропустить',
       doneH: 'Готово!', doneSub: function (b) { return 'Блок «' + b + '» завершён. Регулярность важнее идеальности — так держать!'; },
@@ -66,7 +66,7 @@
       warmName: 'Warm-up', warmSub: 'Light movements, joint warm-up',
       restName: 'Rest', restSub: 'Catch your breath',
       next: 'Next:', lastEx: 'Last exercise 💪', easyEnjoy: 'Easy and enjoyable',
-      exOf: function (i, m, r, rs) { return 'Exercise ' + i + ' of ' + m + ' · set ' + r + '/' + rs; },
+      exOf: function (i, m, r, rs) { return 'Exercise ' + i + ' of ' + m + (rs > 1 ? ' · set ' + r + '/' + rs : ''); },
       switchSides: 'Switch sides',
       back: 'Back', pause: 'Pause', resume: 'Resume', skip: 'Skip',
       doneH: 'Done!', doneSub: function (b) { return 'Block "' + b + '" complete. Consistency beats perfection — keep it up!'; },
@@ -152,6 +152,10 @@
   function repsHtml(ex) {
     return L(ex.r).replace(/\/\s*(нога|сторона|рука|leg|side|arm)/i, '<span class="side-tag">/ $1</span>');
   }
+  function muscleHtml(ex) {
+    var m = A.muscleFor ? A.muscleFor(ex, lang) : '';
+    return m ? '<div class="ex-muscle">' + m + '</div>' : '';
+  }
 
   /* ============================ ГЛАВНЫЙ ЭКРАН ============================ */
   function renderTopbar() {
@@ -234,7 +238,7 @@
       return '<div class="ex-card" data-i="' + i + '">' +
         '<div class="ex-thumb">' + A.svgFor(ex.p) + '</div>' +
         '<div class="ex-info"><div class="ex-name">' + L(ex.n) + '</div>' +
-        '<div class="ex-reps">' + repsHtml(ex) + '</div></div>' +
+        '<div class="ex-meta">' + muscleHtml(ex) + '<div class="ex-reps">' + repsHtml(ex) + '</div></div></div>' +
         '<span class="ex-i">ⓘ</span><div class="ex-num">' + (i + 1) + '</div></div>';
     }).join('');
 
@@ -293,6 +297,7 @@
         '<button class="ex-modal-close" id="exModalClose" aria-label="close">✕</button>' +
         '<div class="ex-modal-illus">' + A.svgFor(ex.p) + '</div>' +
         '<div class="ex-modal-name">' + L(ex.n) + '</div>' +
+        muscleHtml(ex) +
         '<div class="ex-modal-reps">' + repsHtml(ex) + '</div>' +
         '<div class="ex-modal-how"><h4>' + S().howTo + '</h4><p>' + desc + '</p></div>' +
       '</div>';
@@ -427,6 +432,7 @@
         '<div class="pl-phase ' + phaseCls + '">' + phaseTxt + '</div>' +
         '<div class="pl-illus' + restCls + (canInfo ? ' tap' : '') + '"' + (canInfo ? ' id="plIllus"' : '') + '>' + A.svgFor(pose) + '</div>' +
         '<div class="pl-exname">' + name + '</div>' +
+        (st.ex ? '<div class="pl-muscle">' + (A.muscleFor ? A.muscleFor(st.ex, lang) : '') + '</div>' : '') +
         '<div class="pl-reps">' + reps + '</div>' +
         howBtn +
         '<div class="pl-ring">' +

@@ -166,6 +166,7 @@ main {
   filter: drop-shadow(0 6px 16px color-mix(in srgb, var(--accent) 28%, transparent)); }
 .ex-modal-illus svg { width: 100%; height: 100%; }
 .ex-modal-name { font-size: 20px; font-weight: 800; line-height: 1.2; padding: 0 24px; }
+.ex-modal-card .ex-muscle { margin: 8px auto 0; width: fit-content; }
 .ex-modal-reps { color: var(--muted); font-size: 14px; margin-top: 3px; }
 .ex-modal-reps .side-tag { color: var(--accent); font-weight: 700; }
 .ex-modal-how { text-align: left; background: rgba(0,0,0,.22); border-radius: 14px; padding: 12px 14px; margin-top: 16px; }
@@ -186,7 +187,11 @@ main {
 .ex-card:active { background: var(--card2); }
 .ex-thumb {
   flex: none; width: 60px; height: 60px; border-radius: 12px;
-  background: var(--bg2); display: grid; place-items: center; color: var(--accent);
+  background:
+    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 58%),
+    var(--bg2);
+  display: grid; place-items: center; color: var(--accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .ex-thumb svg { width: 54px; height: 54px; }
 .ex-num {
@@ -196,6 +201,14 @@ main {
 }
 .ex-info { flex: 1; min-width: 0; }
 .ex-name { font-weight: 700; font-size: 15px; }
+.ex-meta { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-top: 3px; }
+.ex-muscle {
+  display: inline-flex; align-items: center; min-height: 20px;
+  padding: 2px 8px; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: color-mix(in srgb, var(--accent) 86%, #ffffff);
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .35px;
+}
 .ex-reps { color: var(--muted); font-size: 13px; margin-top: 1px; }
 .ex-reps .side-tag { color: var(--accent); font-weight: 700; }
 
@@ -279,6 +292,11 @@ main {
 .pl-illus.rest { color: var(--muted); }
 
 .pl-exname { font-size: clamp(20px, 6vw, 27px); font-weight: 800; text-align: center; line-height: 1.15; padding: 0 6px; }
+.pl-muscle {
+  color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-radius: 999px; padding: 4px 11px; font-size: 11px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: .5px;
+}
 .pl-reps { color: var(--muted); font-size: 15px; font-weight: 600; }
 .pl-reps .side-tag { color: var(--accent); font-weight: 800; }
 
@@ -337,10 +355,10 @@ main {
 
 /* Иллюстрации (общий стиль поз) */
 .pose .bg { fill: currentColor; opacity: .08; }
-.pose .fig { fill: none; stroke: currentColor; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
-.pose .head { fill: currentColor; stroke: none; }
+.pose .fig { fill: none; stroke: currentColor; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 2px 2px rgba(0,0,0,.18)); }
+.pose .head { fill: currentColor; stroke: none; filter: drop-shadow(0 2px 2px rgba(0,0,0,.16)); }
 .pose .eqbar { stroke: var(--warn); stroke-width: 5; stroke-linecap: round; fill: none; }
-.pose .eqplate { fill: var(--warn); stroke: none; }
+.pose .eqplate { fill: var(--warn); stroke: none; filter: drop-shadow(0 1px 2px rgba(0,0,0,.18)); }
 .pose .gr { stroke: currentColor; opacity: .22; stroke-width: 3.5; stroke-linecap: round; }
 .pose .hint { stroke: var(--warn); stroke-width: 3.5; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: .95; }
 
