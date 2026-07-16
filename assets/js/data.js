@@ -135,7 +135,7 @@
   /* ---- Упражнение / текст ---- */
   function E(nru, nen, rru, ren, p, o) {
     o = o || {};
-    return { n: { ru: nru, en: nen }, r: { ru: rru, en: ren }, p: p, s: o.s || null, side: !!o.side, m: o.m || null };
+    return { n: { ru: nru, en: nen }, r: { ru: rru, en: ren }, p: p, s: o.s || null, side: !!o.side, m: o.m || null, e: o.e || null, w: o.w || null };
   }
   function T(ru, en) { return { ru: ru, en: en }; }
 
@@ -156,7 +156,8 @@
     calves: [
       E('Подъёмы на носки', 'Calf raises', '12–15', '12–15', 'calf'),
       E('Подъёмы на носки на одной ноге', 'Single-leg calf raises', '10–12 / нога', '10–12 / leg', 'calf', { side: true }),
-      E('Подъёмы на носки сидя', 'Seated calf raises', '15–20', '15–20', 'calf')
+      E('Подъёмы на носки сидя', 'Seated calf raises', '15–20', '15–20', 'calf'),
+      E('Подъёмы на носки с гантелями', 'Dumbbell calf raises', '10–15', '10–15', 'calf')
     ],
     legRaise: [
       E('Подъём прямой ноги лёжа', 'Lying straight-leg raise', '8–10 / нога', '8–10 / leg', 'legraise', { side: true }),
@@ -166,13 +167,15 @@
     balance: [
       E('Баланс на одной ноге', 'Single-leg balance', '20–30 сек / нога', '20–30 sec / leg', 'balance', { s: 25, side: true }),
       E('Баланс на одной ноге с опорой', 'Single-leg balance with support', '20–30 сек / нога', '20–30 sec / leg', 'balance', { s: 25, side: true }),
-      E('Баланс с подъёмом колена', 'Single-leg knee-raise hold', '15–25 сек / нога', '15–25 sec / leg', 'balance', { s: 20, side: true })
+      E('Баланс с подъёмом колена', 'Single-leg knee-raise hold', '15–25 сек / нога', '15–25 sec / leg', 'balance', { s: 20, side: true }),
+      E('Удержание гантели на одной ноге', 'Single-leg dumbbell hold', '20–30 сек / нога', '20–30 sec / leg', 'balance', { s: 25, side: true })
     ],
     chest: [
       E('Жим гантелей лёжа', 'Dumbbell bench press', '8–12', '8–12', 'press'),
       E('Жим гантелей лёжа на полу', 'Floor dumbbell press', '8–12', '8–12', 'press'),
       E('Отжимания от лавочки', 'Bench push-ups', '8–12', '8–12', 'pushup'),
-      E('Разведение гантелей лёжа', 'Lying dumbbell fly', '10–12', '10–12', 'fly')
+      E('Разведение гантелей лёжа', 'Lying dumbbell fly', '10–12', '10–12', 'fly'),
+      E('Отжимания от стены', 'Wall push-ups', '8–12', '8–12', 'pushup')
     ],
     row: [
       E('Тяга одной гантели к поясу', 'One-arm dumbbell row', '8–12 / рука', '8–12 / arm', 'onearmrow', { side: true }),
@@ -182,7 +185,8 @@
     shoulderPress: [
       E('Жим гантелей сидя', 'Seated dumbbell press', '8–12', '8–12', 'ohpress'),
       E('Жим гантелей стоя', 'Standing dumbbell press', '8–12', '8–12', 'ohpress'),
-      E('Жим Арнольда (мягкий)', 'Arnold press (gentle)', '8–10', '8–10', 'ohpress')
+      E('Жим Арнольда (мягкий)', 'Arnold press (gentle)', '8–10', '8–10', 'ohpress'),
+      E('Жим ладонями вверх у стены', 'Wall shoulder press isometric', '20–30 сек', '20–30 sec', 'ohpress', { s: 25 })
     ],
     lateral: [
       E('Подъём гантелей в стороны', 'Lateral raises', '10–12', '10–12', 'lateral'),
@@ -191,17 +195,20 @@
     ],
     rearDelt: [
       E('Разведение гантелей в наклоне', 'Bent-over reverse fly', '10–15', '10–15', 'reversefly'),
-      E('Разведение сидя в наклоне', 'Seated bent-over reverse fly', '10–15', '10–15', 'reversefly')
+      E('Разведение сидя в наклоне', 'Seated bent-over reverse fly', '10–15', '10–15', 'reversefly'),
+      E('Отведение прямых рук назад стоя', 'Standing reverse arm sweep', '10–12', '10–12', 'reversefly')
     ],
     biceps: [
       E('Сгибание рук молотком', 'Hammer curls', '8–12', '8–12', 'curl'),
       E('Сгибание рук на бицепс', 'Biceps curls', '8–12', '8–12', 'curl'),
-      E('Сгибание рук сидя', 'Seated curls', '8–12', '8–12', 'curl')
+      E('Сгибание рук сидя', 'Seated curls', '8–12', '8–12', 'curl'),
+      E('Сгибание руки с самосопротивлением', 'Self-resisted biceps curl', '8–10 / рука', '8–10 / arm', 'curl', { side: true })
     ],
     triceps: [
       E('Разгибание руки из-за головы', 'Overhead triceps extension', '8–12', '8–12', 'ohext'),
       E('Разгибание из-за головы сидя', 'Seated overhead extension', '8–12', '8–12', 'ohext'),
-      E('Разгибание из-за головы стоя', 'Standing overhead extension', '8–12', '8–12', 'ohext')
+      E('Разгибание из-за головы стоя', 'Standing overhead extension', '8–12', '8–12', 'ohext'),
+      E('Разгибание рук от стены', 'Wall triceps press', '8–12', '8–12', 'ohext')
     ],
     hinge: [
       E('Румынская тяга', 'Romanian deadlift', '8–12', '8–12', 'rdl'),
@@ -249,19 +256,23 @@
     gluteMax: [
       E('Ягодичный мост', 'Glute bridge', '8–12', '8–12', 'bridge'),
       E('Ягодичный мост с гантелью', 'Weighted glute bridge', '8–12', '8–12', 'bridge'),
+      E('Сумо-тяга с гантелью', 'Dumbbell sumo deadlift', '6–10', '6–10', 'rdl'),
       E('Ягодичный мост на одной ноге', 'Single-leg glute bridge', '6–8 / нога', '6–8 / leg', 'bridge', { side: true }),
-      E('Отведение ноги на четвереньках', 'Quadruped hip extension', '8–10 / нога', '8–10 / leg', 'birddog', { side: true })
+      E('Отведение ноги на четвереньках', 'Quadruped hip extension', '8–10 / нога', '8–10 / leg', 'birddog', { side: true }),
+      E('Отведение ноги назад стоя с опорой', 'Supported standing hip extension', '8–10 / нога', '8–10 / leg', 'hipabduction', { side: true })
     ],
     gluteMed: [
       E('Отведение ноги лёжа на боку', 'Side-lying leg raise', '8–10 / нога', '8–10 / leg', 'legraise', { side: true }),
       E('Ракушка лёжа на боку', 'Side-lying clamshell', '8–12 / сторона', '8–12 / side', 'clamshell', { side: true }),
       E('Отведение бедра стоя с опорой', 'Supported standing hip abduction', '8–10 / нога', '8–10 / leg', 'hipabduction', { side: true }),
-      E('Боковой шаг без резинки', 'Bodyweight side step', '8–10 / сторона', '8–10 / side', 'hipabduction', { side: true })
+      E('Боковой шаг без резинки', 'Bodyweight side step', '8–10 / сторона', '8–10 / side', 'hipabduction', { side: true }),
+      E('Боковой шаг с гантелью у груди', 'Dumbbell side step', '8–10 / сторона', '8–10 / side', 'hipabduction', { side: true })
     ],
     adductors: [
       E('Приведение ноги лёжа на боку', 'Side-lying hip adduction', '8–10 / нога', '8–10 / leg', 'hipadduction', { side: true }),
       E('Сжимание подушки коленями', 'Pillow knee squeeze', '20–30 сек', '20–30 sec', 'hipadduction', { s: 25 }),
-      E('Узкая стойка: мягкое вставание', 'Narrow-stance sit-to-stand', '6–8', '6–8', 'squat')
+      E('Узкая стойка: мягкое вставание', 'Narrow-stance sit-to-stand', '6–8', '6–8', 'squat'),
+      E('Неглубокий сумо-присед с гантелью', 'Dumbbell sumo squat', '6–10', '6–10', 'squat')
     ],
     tibialis: [
       E('Подъём носков стоя у стены', 'Standing toe raises', '10–15', '10–15', 'toetraise'),
@@ -271,39 +282,46 @@
     lats: [
       E('Тяга одной гантели к поясу', 'One-arm dumbbell row', '6–10 / рука', '6–10 / arm', 'onearmrow', { side: true }),
       E('Пуловер с гантелью лёжа', 'Dumbbell pullover', '8–10', '8–10', 'pullover'),
-      E('Тяга локтями назад лёжа грудью на лавке', 'Chest-supported elbow row', '8–10', '8–10', 'bentrow')
+      E('Тяга локтями назад лёжа грудью на лавке', 'Chest-supported elbow row', '8–10', '8–10', 'bentrow'),
+      E('Тяга локтей вниз стоя с напряжением', 'Standing lat pull-down squeeze', '10–12', '10–12', 'bentrow')
     ],
     midBack: [
       E('Тяга гантелей в наклоне', 'Bent-over dumbbell row', '8–10', '8–10', 'bentrow'),
       E('Тяга гантелей грудью на наклонной лавочке', 'Incline chest-supported row', '8–10', '8–10', 'bentrow'),
-      E('Сведение лопаток с лёгкими гантелями', 'Dumbbell scapular retraction', '10–12', '10–12', 'reversefly')
+      E('Сведение лопаток с лёгкими гантелями', 'Dumbbell scapular retraction', '10–12', '10–12', 'reversefly'),
+      E('Сведение лопаток стоя', 'Standing scapular squeeze', '10–12', '10–12', 'reversefly')
     ],
     sideDelts: [
       E('Подъём гантелей в стороны', 'Lateral raises', '8–10', '8–10', 'lateral'),
       E('Подъём в стороны сидя', 'Seated lateral raises', '8–10', '8–10', 'lateral'),
-      E('Частичные подъёмы в стороны', 'Partial lateral raises', '10–12', '10–12', 'lateral')
+      E('Частичные подъёмы в стороны', 'Partial lateral raises', '10–12', '10–12', 'lateral'),
+      E('Удержание рук в стороны без веса', 'Bodyweight lateral arm hold', '20–30 сек', '20–30 sec', 'lateral', { s: 25 })
     ],
     lowerAbs: [
       E('Обратное скручивание', 'Reverse crunch', '8–10', '8–10', 'crunch'),
       E('Опускание ног лёжа', 'Lying leg lowers', '6–10', '6–10', 'deadbug'),
-      E('Пятка к полу лёжа', 'Dead bug heel taps', '8–10 / сторона', '8–10 / side', 'deadbug', { side: true })
+      E('Пятка к полу лёжа', 'Dead bug heel taps', '8–10 / сторона', '8–10 / side', 'deadbug', { side: true }),
+      E('Dead bug с лёгкой гантелью', 'Dumbbell dead bug', '6–8 / сторона', '6–8 / side', 'deadbug', { side: true })
     ],
     abs: [
       E('Dead bug', 'Dead bug', '6–8 / сторона', '6–8 / side', 'deadbug', { side: true }),
       E('Скручивание с малой амплитудой', 'Small-range crunch', '8–10', '8–10', 'crunch'),
       E('Планка с колен', 'Plank from knees', '20–30 сек', '20–30 sec', 'plank', { s: 25 }),
-      E('Планка', 'Forearm plank', '20–30 сек', '20–30 sec', 'plank', { s: 25 })
+      E('Планка', 'Forearm plank', '20–30 сек', '20–30 sec', 'plank', { s: 25 }),
+      E('Скручивание с лёгкой гантелью', 'Dumbbell crunch', '8–10', '8–10', 'crunch')
     ],
     obliques: [
       E('Боковая планка с колен', 'Side plank from knees', '15–25 сек / сторона', '15–25 sec / side', 'sideplank', { s: 20, side: true }),
       E('Боковая планка', 'Side plank', '15–25 сек / сторона', '15–25 sec / side', 'sideplank', { s: 20, side: true }),
       E('Наклоны в стороны с гантелью', 'Dumbbell side bends', '8–10 / сторона', '8–10 / side', 'sidebend', { side: true }),
-      E('Поворот корпуса сидя без рывков', 'Seated trunk rotations', '8–10 / сторона', '8–10 / side', 'rotation', { side: true })
+      E('Поворот корпуса сидя без рывков', 'Seated trunk rotations', '8–10 / сторона', '8–10 / side', 'rotation', { side: true }),
+      E('Колено к противоположному локтю стоя', 'Standing cross-body knee raise', '8–10 / сторона', '8–10 / side', 'rotation', { side: true })
     ],
     spinalErectors: [
       E('Bird dog', 'Bird dog', '6–8 / сторона', '6–8 / side', 'birddog', { side: true }),
       E('Супермен (мягкий)', 'Superman (gentle)', '8–10', '8–10', 'superman'),
-      E('Гуд-морнинг без веса', 'Bodyweight good morning', '8–10', '8–10', 'rdl')
+      E('Гуд-морнинг без веса', 'Bodyweight good morning', '8–10', '8–10', 'rdl'),
+      E('Гуд-морнинг с лёгкой гантелью', 'Dumbbell good morning', '8–10', '8–10', 'rdl')
     ],
     mobility: [
       E('Круги плечами и тазом', 'Shoulder and hip circles', '30–40 сек', '30–40 sec', 'mobility', { s: 40 }),
@@ -334,9 +352,28 @@
     stretch: T('растяжка', 'stretch'), mobility: T('подвижность', 'mobility')
   };
 
+  function equipmentFor(ex) {
+    if (ex.e) return ex.e;
+    var n = ex.n.en.toLowerCase();
+    if (/bent-over reverse fly/.test(n)) return ['stand'];
+    if (/lying dumbbell fly/.test(n)) return ['bench', 'mat'];
+    if (/floor|lying|glute bridge|dead bug|plank|bird dog|quadruped|superman|heel slide|clamshell|hip adduction|crunch|cat-cow|pillow/.test(n)) return ['mat'];
+    if (/bench|chest-supported|sit-to-stand|box squat|seated|incline|knee extension/.test(n)) return ['bench'];
+    if (/pullover|fly/.test(n)) return ['bench', 'mat'];
+    return ['stand'];
+  }
+
+  function loadFor(ex) {
+    if (ex.w) return ex.w;
+    var n = ex.n.en.toLowerCase();
+    return /dumbbell|goblet|weighted|farmer|curl|lateral raise|front raise|reverse fly|triceps extension|overhead extension|arnold press|romanian deadlift|single-leg rdl|\brow\b/.test(n) ? 'dumbbell' : 'bodyweight';
+  }
+
   Object.keys(POOL).forEach(function (cat) {
     (POOL[cat] || []).forEach(function (ex) {
       if (!ex.m) ex.m = CAT_MUSCLE[cat] || T('всё тело', 'full body');
+      if (!ex.e) ex.e = equipmentFor(ex);
+      if (!ex.w) ex.w = loadFor(ex);
     });
   });
 
@@ -386,7 +423,7 @@
 
   var INFO = {
     ru: {
-      structure: '1 мин разминка · 8 разных мышечных слотов · 1 чистый подход на упражнение',
+      structure: '1 мин разминка · 3–4 упражнения · 2 подхода подряд · отдых на смену веса',
       weight: 'Лёгкий / средний вес. Оставляйте 2–3 повтора в запасе.',
       knees: 'Колени: начинаем очень мягко — без прыжков, глубоких приседаний и выпадов. Если боль — уменьшите амплитуду, используйте опору или пропустите упражнение.',
       tempo: 'Темп медленный и контролируемый.',
@@ -400,7 +437,7 @@
       stop: ['Острая боль в колене', 'Отёк', 'Заклинивание сустава', 'Ощущение, что колено подворачивается', 'При необходимости обратитесь к специалисту']
     },
     en: {
-      structure: '1-min warm-up · 8 distinct muscle slots · 1 clean set per exercise',
+      structure: '1-min warm-up · 3–4 exercises · 2 consecutive sets · time to change weight',
       weight: 'Light / medium weight. Leave 2–3 reps in reserve.',
       knees: 'Knees: start very gently — no jumping, deep squats or lunges. If it hurts, reduce the range, use support, or skip the exercise.',
       tempo: 'Slow, controlled tempo.',
@@ -506,6 +543,24 @@
     'Gentle knee mobility': T('Держась за опору, мягко сгибайте и разгибайте колени в небольшой амплитуде. Колени смотрят туда же, куда носки.', 'Holding support, gently bend and straighten your knees through a small range. Knees point the same way as toes.'),
     'Farmer hold': T('Встаньте прямо с гантелями в руках. Плечи вниз, живот слегка напряжён, стойте ровно и дышите.', 'Stand tall holding dumbbells. Shoulders down, abs lightly braced, stand steady and breathe.'),
     'Slow farmer walk': T('Идите медленно с гантелями, корпус высокий, шаги тихие. Если мало места — маршируйте на месте.', 'Walk slowly with dumbbells, torso tall, quiet steps. If space is limited, march in place.'),
+    'Dumbbell calf raises': T('Держите гантели по бокам, медленно поднимитесь на носки и так же медленно опуститесь. При необходимости стойте рядом с опорой.', 'Hold dumbbells at your sides, rise slowly onto your toes, then lower with control. Stand near support if needed.'),
+    'Single-leg dumbbell hold': T('Держите лёгкую гантель в одной руке и стойте на противоположной ноге рядом с опорой. Корпус ровный, колено мягкое.', 'Hold a light dumbbell in one hand and balance on the opposite leg near support. Stay tall with a soft knee.'),
+    'Dumbbell sumo deadlift': T('Поставьте стопы чуть шире плеч, держите гантель перед собой. Отведите таз назад, опустите гантель между ног и встаньте за счёт ягодиц.', 'Stand slightly wider than shoulder width and hold a dumbbell in front. Hinge the hips back, lower it between your legs, then stand using your glutes.'),
+    'Dumbbell side step': T('Держите лёгкую гантель у груди. Сделайте небольшой шаг в сторону, сохраняя стопы параллельными и колени мягкими.', 'Hold a light dumbbell at your chest. Take a small step sideways with parallel feet and soft knees.'),
+    'Dumbbell sumo squat': T('Держите гантель у груди, стопы немного шире плеч. Присядьте неглубоко, направляя колени по линии носков, затем плавно встаньте.', 'Hold a dumbbell at your chest with feet slightly wider than shoulder width. Squat shallowly with knees tracking toes, then stand smoothly.'),
+    'Dumbbell dead bug': T('Лёжа на спине, держите лёгкую гантель над грудью двумя руками. Прижимая поясницу к полу, поочерёдно касайтесь пяткой пола.', 'Lie on your back holding one light dumbbell above your chest with both hands. Keep your lower back down and tap one heel to the floor at a time.'),
+    'Dumbbell crunch': T('Лёжа на спине, держите лёгкую гантель у груди. Слегка поднимите лопатки, не тяните шею, затем медленно опуститесь.', 'Lie on your back with a light dumbbell at your chest. Lift the shoulder blades slightly without pulling the neck, then lower slowly.'),
+    'Dumbbell good morning': T('Держите лёгкую гантель у груди, колени мягкие. Отведите таз назад с ровной спиной и вернитесь, напрягая ягодицы.', 'Hold a light dumbbell at your chest with soft knees. Hinge the hips back with a long spine, then return by squeezing the glutes.'),
+    'Wall push-ups': T('Поставьте ладони на стену чуть шире плеч. Согните локти, приблизьте грудь к стене и плавно оттолкнитесь, сохраняя корпус прямым.', 'Place your hands on a wall slightly wider than your shoulders. Bend the elbows toward the wall and press away while keeping your body straight.'),
+    'Wall shoulder press isometric': T('Встаньте спиной к стене, согните руки и мягко давите предплечьями вверх и назад в стену. Плечи не поднимайте к ушам.', 'Stand with your back to a wall, bend your arms, and gently press the forearms upward and back into it. Keep shoulders away from ears.'),
+    'Standing reverse arm sweep': T('Встаньте ровно, слегка отведите прямые руки назад и сведите лопатки. Не прогибайте поясницу и не поднимайте плечи.', 'Stand tall, sweep straight arms slightly behind you, and squeeze the shoulder blades. Do not arch the lower back or shrug.'),
+    'Self-resisted biceps curl': T('Одной рукой создавайте сопротивление другой. Медленно сгибайте рабочую руку, затем так же медленно разгибайте, сохраняя локоть у корпуса.', 'Use one hand to resist the other. Slowly curl the working arm, then lower with the same control while keeping the elbow by your side.'),
+    'Wall triceps press': T('Упритесь ладонями в стену на уровне груди, локти направьте вниз. Согните локти, приблизьте лицо к стене и разогните руки за счёт трицепса.', 'Place hands on a wall at chest height with elbows pointing down. Bend toward the wall, then straighten the arms using the triceps.'),
+    'Supported standing hip extension': T('Держась за опору, отведите прямую ногу немного назад, не прогибая поясницу. Сожмите ягодицу и медленно верните ногу.', 'Hold support and move one straight leg slightly behind you without arching the back. Squeeze the glute and return slowly.'),
+    'Standing lat pull-down squeeze': T('Поднимите руки, затем тяните локти вниз к рёбрам, сильно напрягая широчайшие. Корпус остаётся ровным.', 'Raise your arms, then pull the elbows down toward your ribs while strongly squeezing the lats. Keep your torso tall.'),
+    'Standing scapular squeeze': T('Встаньте ровно, согните руки и мягко сведите лопатки назад и вниз. Не выпячивайте рёбра и не поднимайте плечи.', 'Stand tall with bent arms and gently draw the shoulder blades back and down. Do not flare the ribs or shrug.'),
+    'Bodyweight lateral arm hold': T('Поднимите руки в стороны чуть ниже плеч и удерживайте. Локти мягкие, плечи опущены, корпус неподвижен.', 'Raise the arms out to the sides just below shoulder height and hold. Keep elbows soft, shoulders down, and torso still.'),
+    'Standing cross-body knee raise': T('Поднимайте колено к противоположному локтю, слегка поворачивая рёбра. Таз остаётся устойчивым, движение спокойное.', 'Lift one knee toward the opposite elbow with a small rib-cage rotation. Keep the hips steady and move calmly.'),
     'Easy walk or marching in place': T('Спокойная прогулка или ходьба на месте 10 минут — лёгкая активность для восстановления.', 'An easy 10-minute walk or marching in place — light activity for recovery.'),
     'Shoulder circles, knee bends, calf stretches': T('Мягкая подвижность 10 минут: круги плечами, лёгкое сгибание/разгибание коленей, растяжка икр. Спокойно.', '10 minutes of gentle mobility: shoulder circles, light knee bends, calf stretches. Take it easy.')
   };

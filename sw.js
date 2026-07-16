@@ -1,17 +1,19 @@
 /* Service Worker — офлайн-режим для «10-минутный тренер» */
-var CACHE = 'coach-v10';
+var CACHE = 'coach-v14';
 var ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './assets/css/styles.css?v=10',
-  './assets/js/data.js?v=10',
-  './assets/js/app.js?v=10',
+  './assets/css/styles.css?v=14',
+  './assets/js/data.js?v=14',
+  './assets/js/app.js?v=14',
   './assets/icons/icon.svg',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',
   './assets/icons/icon-maskable-192.png',
-  './assets/icons/icon-maskable-512.png',
+  './assets/icons/icon-maskable-512.png'
+];
+var OPTIONAL_ASSETS = [
   './assets/audio/music-morning.mp3',
   './assets/audio/music-day.mp3',
   './assets/audio/music-evening.mp3'
@@ -20,8 +22,9 @@ var ASSETS = [
 self.addEventListener('install', function (e) {
   e.waitUntil(
     caches.open(CACHE).then(function (c) {
-      // не валим установку, если какой-то файл недоступен
-      return Promise.allSettled(ASSETS.map(function (u) { return c.add(u); }));
+      return c.addAll(ASSETS).then(function () {
+        return Promise.allSettled(OPTIONAL_ASSETS.map(function (u) { return c.add(u); }));
+      });
     }).then(function () { return self.skipWaiting(); })
   );
 });

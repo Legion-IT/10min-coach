@@ -11,7 +11,11 @@ for every exercise. Installs to your phone as an icon and **works offline**.
 ## Features
 - **Two languages (RU / EN)** — header toggle, auto-detected from the browser, remembered.
 - **“Now”** — auto-selects the weekday (Mon–Sun) and block (morning / midday / evening). Any day/block is browsable.
-- **Guided timer** — warm-up → **one clean set across 8 different muscle slots**, with a countdown ring, progress bar and set dots.
+- **Guided timer** — warm-up → **3 or 4 exercises × 2 sets**, with longer changeover rests, a countdown ring, progress bar and set dots.
+- **Room/equipment modes** — choose **Standing**, **Bench + standing**, or **Mat + standing** so one workout does not bounce between bench, mat and standing work.
+- **Load modes** — choose a mixed session, dumbbells only, or bodyweight only.
+- **Balanced rotation** — short sessions rotate through all target muscle groups instead of always taking the first four.
+- **Replace one exercise** — swap an individual movement while keeping the rest of the workout intact.
 - **Sound + voice (RU/EN)** — 3-2-1 cues, “switch sides”, spoken exercise names. Toggle 🔊.
 - **Background music** — original looping klezmer/freylekhs tracks (instrumental, generated with ElevenLabs), one per time-of-day, playing quietly under the workout. Toggle 🎵.
 - **50+ exercise variants** grouped by real target muscles: quads, hamstrings, glutes, adductors, calves, tibialis, chest, lats, mid-back, delts, biceps, triceps, abs, obliques, spinal erectors, grip/core and mobility.

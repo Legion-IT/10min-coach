@@ -1,7 +1,7 @@
 {
   "name": "10-Minute Coach · 10-минутный тренер",
   "short_name": "10-min Coach",
-  "description": "30 minutes a day with dumbbells and a bench. Morning, midday, evening — 10 min each. Shows what to do now, with a timer and pictures. Русский / English.",
+  "description": "A focused 10-minute workout with 3–4 exercises. Choose standing, bench or mat, with dumbbells or bodyweight. Русский / English.",
   "lang": "en",
   "dir": "ltr",
   "start_url": "./index.html?src=pwa",

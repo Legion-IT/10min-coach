@@ -11,7 +11,7 @@
   };
 
   /* ---------- Тайминги ---------- */
-  var WORK = 45, WORK_SIDE = 50, REST = 15, REST_EX = 20, WARMUP = 60, SETS = 1;
+  var WORK = 45, WORK_SIDE = 50, REST = 15, REST_EX = 35, WARMUP = 60, SETS = 2;
 
   /* ---------- Язык ---------- */
   function detectLang() {
@@ -29,14 +29,17 @@
       brand: '10-минутный тренер', title: '10-минутный тренер', install: 'Установить',
       now: 'Сейчас', min10: '10 мин', minShort: 'мин',
       exercises: 'Упражнения', whatToDo: 'Что делать',
+      setupStand: 'Стоя', setupBench: 'Лавка + стоя', setupMat: 'Коврик + стоя',
+      loadMixed: 'Смешанно', loadDumbbell: 'Гантели', loadBodyweight: 'Без веса',
       repeat: 'повтор', lightDay: 'лёгкий день', start: 'Начать',
       rounds: function (n) { return n + ' круг' + (n === 1 ? '' : (n < 5 ? 'а' : 'ов')); },
       sets: function (n) { return n + ' подход' + (n === 1 ? '' : (n < 5 ? 'а' : 'ов')); },
+      exCount: function (n) { return n + ' упр.'; },
       setLbl: function (n) { return 'подход ' + n; },
-      shuffle: 'Другие', howTo: 'Как делать', howHint: 'Медленно и подконтрольно, дышите спокойно.',
+      shuffle: 'Другие', replace: 'Заменить упражнение', howTo: 'Как делать', howHint: 'Медленно и подконтрольно, дышите спокойно.',
       structTitle: 'Структура 10 минут', weightTitle: 'Вес', kneesTitle: 'Колени — очень мягко', tempoTitle: 'Темп',
       accProgress: 'Как прогрессировать', accForm: 'Делайте правильно', accStop: 'Когда остановиться',
-      motto: 'Регулярность важнее идеальности.<br>30 минут каждый день — уже победа! 🏆',
+      motto: 'Регулярность важнее идеальности.<br>10 минут движения — уже победа! 🏆',
       phWarm: 'Разминка', phEx: 'Упражнение', phRest: 'Отдых', phRestNew: 'Отдых · новый круг', phActivity: 'Активность',
       warmName: 'Разминка', warmSub: 'Лёгкие движения, разогрев суставов',
       restName: 'Отдых', restSub: 'Восстановите дыхание',
@@ -44,6 +47,7 @@
       exOf: function (i, m, r, rs) { return 'Упражнение ' + i + ' из ' + m + (rs > 1 ? ' · подход ' + r + '/' + rs : ''); },
       switchSides: 'Смените сторону',
       back: 'Назад', pause: 'Пауза', resume: 'Продолжить', skip: 'Пропустить',
+      close: 'Закрыть', music: 'Музыка', sound: 'Звук',
       doneH: 'Готово!', doneSub: function (b) { return 'Блок «' + b + '» завершён. Регулярность важнее идеальности — так держать!'; },
       nextBlock: function (b) { return 'Дальше: ' + b + ' (10 мин)'; }, home: 'На главную', greatDay: 'Отличный день! 💪',
       iosHint: 'Чтобы установить: <b>Поделиться</b> → <b>На экран «Домой»</b>',
@@ -54,14 +58,17 @@
       brand: '10-Minute Coach', title: '10-Minute Coach', install: 'Install',
       now: 'Now', min10: '10 min', minShort: 'min',
       exercises: 'Exercises', whatToDo: 'What to do',
+      setupStand: 'Standing', setupBench: 'Bench + standing', setupMat: 'Mat + standing',
+      loadMixed: 'Mixed', loadDumbbell: 'Dumbbells', loadBodyweight: 'Bodyweight',
       repeat: 'repeat', lightDay: 'light day', start: 'Start',
       rounds: function (n) { return n + ' round' + (n === 1 ? '' : 's'); },
       sets: function (n) { return n + ' set' + (n === 1 ? '' : 's'); },
+      exCount: function (n) { return n + ' exercises'; },
       setLbl: function (n) { return 'set ' + n; },
-      shuffle: 'Shuffle', howTo: 'How to do it', howHint: 'Slow and controlled, breathe calmly.',
+      shuffle: 'Shuffle', replace: 'Replace exercise', howTo: 'How to do it', howHint: 'Slow and controlled, breathe calmly.',
       structTitle: '10-minute structure', weightTitle: 'Weight', kneesTitle: 'Knees — very gently', tempoTitle: 'Tempo',
       accProgress: 'How to progress', accForm: 'Do it right', accStop: 'When to stop',
-      motto: 'Consistency beats perfection.<br>30 minutes a day is already a win! 🏆',
+      motto: 'Consistency beats perfection.<br>10 minutes of movement is already a win! 🏆',
       phWarm: 'Warm-up', phEx: 'Exercise', phRest: 'Rest', phRestNew: 'Rest · new round', phActivity: 'Activity',
       warmName: 'Warm-up', warmSub: 'Light movements, joint warm-up',
       restName: 'Rest', restSub: 'Catch your breath',
@@ -69,6 +76,7 @@
       exOf: function (i, m, r, rs) { return 'Exercise ' + i + ' of ' + m + (rs > 1 ? ' · set ' + r + '/' + rs : ''); },
       switchSides: 'Switch sides',
       back: 'Back', pause: 'Pause', resume: 'Resume', skip: 'Skip',
+      close: 'Close', music: 'Music', sound: 'Sound',
       doneH: 'Done!', doneSub: function (b) { return 'Block "' + b + '" complete. Consistency beats perfection — keep it up!'; },
       nextBlock: function (b) { return 'Next: ' + b + ' (10 min)'; }, home: 'Home', greatDay: 'Great day! 💪',
       iosHint: 'To install: <b>Share</b> → <b>Add to Home Screen</b>',
@@ -80,7 +88,18 @@
 
   /* ---------- Состояние ---------- */
   var todayDow = new Date().getDay();
-  var state = { dow: todayDow, block: nowBlockKey() };
+  var state = {
+    dow: todayDow,
+    block: nowBlockKey(),
+    setup: load('coach_setup', 'bench'),
+    load: load('coach_load', 'mixed'),
+    count: load('coach_count', 4)
+  };
+  var SETUPS = ['bench', 'mat', 'stand'];
+  var LOADS = ['mixed', 'dumbbell', 'bodyweight'];
+  if (SETUPS.indexOf(state.setup) === -1) state.setup = 'bench';
+  if (LOADS.indexOf(state.load) === -1) state.load = 'mixed';
+  if (state.count !== 3 && state.count !== 4) state.count = 4;
 
   function nowBlockKey() {
     var h = new Date().getHours();
@@ -117,10 +136,34 @@
   }
 
   /* ---------- Случайный подбор упражнений по слотам (с ротацией) ---------- */
-  var selCache = {};
+  var selCache = {}, selCatCache = {};
   function exId(ex) { return ex.n.en; }
+  function setupAllows(ex) {
+    var e = ex.e || ['stand'];
+    if (state.setup === 'stand') return e.indexOf('stand') !== -1;
+    if (state.setup === 'bench') return e.indexOf('bench') !== -1 || e.indexOf('stand') !== -1;
+    if (state.setup === 'mat') return e.indexOf('mat') !== -1 || e.indexOf('stand') !== -1;
+    return true;
+  }
+  function loadAllows(ex) { return state.load === 'mixed' || ex.w === state.load; }
+  function currentWeekIndex() {
+    var d = new Date();
+    return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay()) / 604800000);
+  }
+  function rotatedSlots(slots, dow) {
+    if (!slots || !slots.length) return [];
+    var secondSession = dow >= 4 && dow <= 6 ? 1 : 0;
+    var offset = (currentWeekIndex() * state.count * 2 + secondSession * state.count) % slots.length;
+    if (offset < 0) offset += slots.length;
+    return slots.slice(offset).concat(slots.slice(0, offset));
+  }
+  function selectionKey(dow, blockKey) {
+    return [dow, blockKey, state.setup, state.load, state.count, currentWeekIndex()].join('-');
+  }
   function chooseExercise(cat, excludeIds) {
     var pool = A.POOL[cat] || [];
+    if (!pool.length) return null;
+    pool = pool.filter(function (ex) { return setupAllows(ex) && loadAllows(ex); });
     if (!pool.length) return null;
     var avail = pool.filter(function (e) { return excludeIds.indexOf(exId(e)) === -1; });
     if (!avail.length) avail = pool.slice();
@@ -132,22 +175,37 @@
     return picked;
   }
   function blockExercises(dow, blockKey) {
-    var key = dow + '-' + blockKey;
+    var key = selectionKey(dow, blockKey);
     if (selCache[key]) return selCache[key];
     var block = A.blockFor(dow, blockKey);
     var ex;
     if (block.slots) {
-      var chosen = [];
-      block.slots.forEach(function (cat) {
+      var chosen = [], cats = [];
+      rotatedSlots(block.slots, dow).forEach(function (cat) {
+        if (chosen.length >= state.count) return;
         var e = chooseExercise(cat, chosen.map(exId));
-        if (e) chosen.push(e);
+        if (e) { chosen.push(e); cats.push(cat); }
       });
-      ex = chosen;
+      ex = chosen; selCatCache[key] = cats;
     } else { ex = block.ex; }
     selCache[key] = ex;
     return ex;
   }
-  function reshuffle(dow, blockKey) { delete selCache[dow + '-' + blockKey]; }
+  function reshuffle(dow, blockKey) {
+    var key = selectionKey(dow, blockKey); delete selCache[key]; delete selCatCache[key];
+  }
+  function replaceExercise(dow, blockKey, index) {
+    var key = selectionKey(dow, blockKey);
+    var exs = blockExercises(dow, blockKey);
+    var cat = (selCatCache[key] || [])[index];
+    if (!cat || !exs[index]) return;
+    var replacement = chooseExercise(cat, exs.map(exId));
+    if (replacement) exs[index] = replacement;
+  }
+  function canReplaceExercise(dow, blockKey, index) {
+    var cat = (selCatCache[selectionKey(dow, blockKey)] || [])[index];
+    return !!cat && (A.POOL[cat] || []).filter(function (ex) { return setupAllows(ex) && loadAllows(ex); }).length > 1;
+  }
 
   function repsHtml(ex) {
     return L(ex.r).replace(/\/\s*(нога|сторона|рука|leg|side|arm)/i, '<span class="side-tag">/ $1</span>');
@@ -201,23 +259,49 @@
       return '<button data-block="' + k + '" class="' + (k === state.block ? 'on' : '') + '">' +
         L(A.BLOCK_LABELS[k]) + '<span class="sg-sub">' + S().min10 + '</span></button>';
     }).join('');
+    var setupLabels = { stand: S().setupStand, bench: S().setupBench, mat: S().setupMat };
+    var setupSeg = SETUPS.map(function (k) {
+      return '<button data-setup="' + k + '" aria-pressed="' + (k === state.setup) + '" class="' + (k === state.setup ? 'on' : '') + '">' + setupLabels[k] + '</button>';
+    }).join('');
+    var loadLabels = { mixed: S().loadMixed, dumbbell: S().loadDumbbell, bodyweight: S().loadBodyweight };
+    var loadSeg = LOADS.map(function (k) {
+      return '<button data-load="' + k + '" aria-pressed="' + (k === state.load) + '" class="' + (k === state.load ? 'on' : '') + '">' + loadLabels[k] + '</button>';
+    }).join('');
+    var countSeg = [3, 4].map(function (n) {
+      return '<button data-count="' + n + '" aria-pressed="' + (n === state.count) + '" class="' + (n === state.count ? 'on' : '') + '">' + S().exCount(n) + '</button>';
+    }).join('');
 
     var exs = blockExercises(state.dow, state.block);
     var lightBadge = w.light ? ' · <span class="light-badge">' + S().lightDay + '</span>' : '';
     var repeatBadge = w.repeat ? ' · ' + S().repeat : '';
+    var countBadge = block.mode === 'single' ? '' : ' · ' + S().exCount(exs.length);
     var setsBadge = block.mode === 'single' ? '' : ' · ' + (block.mode === 'circuit' ? S().rounds(block.rounds || 1) : S().sets(SETS));
     var dur = blockDuration(block, exs);
 
     hero.innerHTML =
       '<div class="hero-top">' + nowLabel + '<span class="hero-daytag">' + L(w.tag) + '</span></div>' +
       '<div class="seg" id="seg">' + seg + '</div>' +
+      '<div class="setup-row"><div class="setup-seg" id="setupSeg">' + setupSeg + '</div><div class="count-seg" id="countSeg">' + countSeg + '</div></div>' +
+      '<div class="load-seg" id="loadSeg">' + loadSeg + '</div>' +
       '<div class="hero-title">' + L(block.title) + '</div>' +
-      '<div class="hero-sub">' + L(w.title) + repeatBadge + lightBadge + setsBadge + ' · ~' + mmss(dur) + '</div>' +
+      '<div class="hero-sub">' + L(w.title) + repeatBadge + lightBadge + countBadge + setsBadge + ' · ~' + mmss(dur) + '</div>' +
       '<button class="btn-start" id="startBtn">▶ ' + S().start + ' <span class="b-time">· ' + L(A.BLOCK_LABELS[state.block]) + '</span></button>';
 
     $('#seg').addEventListener('click', function (e) {
       var b = e.target.closest('[data-block]'); if (!b) return;
       state.block = b.getAttribute('data-block'); renderAll();
+    });
+    $('#setupSeg').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-setup]'); if (!b) return;
+      state.setup = b.getAttribute('data-setup'); save('coach_setup', state.setup); selCache = {}; selCatCache = {}; renderAll();
+    });
+    $('#loadSeg').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-load]'); if (!b) return;
+      state.load = b.getAttribute('data-load'); save('coach_load', state.load); selCache = {}; selCatCache = {}; renderAll();
+    });
+    $('#countSeg').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-count]'); if (!b) return;
+      state.count = +b.getAttribute('data-count'); save('coach_count', state.count); selCache = {}; selCatCache = {}; renderAll();
     });
     $('#startBtn').addEventListener('click', function () { Player.open(state.dow, state.block); });
   }
@@ -235,11 +319,12 @@
       '</div>';
 
     var cards = exs.map(function (ex, i) {
-      return '<div class="ex-card" data-i="' + i + '">' +
+      return '<div class="ex-card" data-i="' + i + '" role="button" tabindex="0">' +
         '<div class="ex-thumb">' + A.svgFor(ex.p) + '</div>' +
         '<div class="ex-info"><div class="ex-name">' + L(ex.n) + '</div>' +
         '<div class="ex-meta">' + muscleHtml(ex) + '<div class="ex-reps">' + repsHtml(ex) + '</div></div></div>' +
-        '<span class="ex-i">ⓘ</span><div class="ex-num">' + (i + 1) + '</div></div>';
+        (block.slots && canReplaceExercise(state.dow, state.block, i) ? '<button class="ex-swap" data-replace="' + i + '" aria-label="' + S().replace + '" title="' + S().replace + '">↻</button>' : '') +
+        '<div class="ex-num">' + (i + 1) + '</div></div>';
     }).join('');
 
     wrap.innerHTML = head + cards;
@@ -247,8 +332,16 @@
     if (sb) sb.addEventListener('click', function () {
       reshuffle(state.dow, state.block); renderHero(); renderExList();
     });
+    wrap.querySelectorAll('[data-replace]').forEach(function (button) {
+      button.addEventListener('click', function (e) {
+        e.stopPropagation(); replaceExercise(state.dow, state.block, +button.getAttribute('data-replace')); renderExList();
+      });
+    });
     wrap.querySelectorAll('.ex-card').forEach(function (card) {
       card.addEventListener('click', function () { openExerciseInfo(exs[+card.getAttribute('data-i')], state.block); });
+      card.addEventListener('keydown', function (e) {
+        if (e.target === card && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openExerciseInfo(exs[+card.getAttribute('data-i')], state.block); }
+      });
     });
   }
 
@@ -289,22 +382,29 @@
   /* ---------- Карточка «как делать» ---------- */
   function openExerciseInfo(ex, blockKey) {
     var m = $('#exModal'); if (!m || !ex) return;
+    var previousFocus = document.activeElement;
     var desc = A.descFor(ex, lang) || S().howHint;
     m.className = 'ex-modal ' + (blockKey || state.block);
     m.innerHTML =
       '<div class="ex-modal-back" id="exModalBack"></div>' +
-      '<div class="ex-modal-card" role="dialog" aria-modal="true">' +
-        '<button class="ex-modal-close" id="exModalClose" aria-label="close">✕</button>' +
+      '<div class="ex-modal-card" role="dialog" aria-modal="true" aria-labelledby="exModalTitle">' +
+        '<button class="ex-modal-close" id="exModalClose" aria-label="' + S().close + '">✕</button>' +
         '<div class="ex-modal-illus">' + A.svgFor(ex.p) + '</div>' +
-        '<div class="ex-modal-name">' + L(ex.n) + '</div>' +
+        '<div class="ex-modal-name" id="exModalTitle">' + L(ex.n) + '</div>' +
         muscleHtml(ex) +
         '<div class="ex-modal-reps">' + repsHtml(ex) + '</div>' +
         '<div class="ex-modal-how"><h4>' + S().howTo + '</h4><p>' + desc + '</p></div>' +
       '</div>';
     m.hidden = false;
-    var close = function () { m.hidden = true; m.innerHTML = ''; };
+    var onKey = function (e) { if (e.key === 'Escape') close(); };
+    var close = function () {
+      document.removeEventListener('keydown', onKey); m.hidden = true; m.innerHTML = '';
+      if (previousFocus && previousFocus.focus) previousFocus.focus();
+    };
     $('#exModalClose').addEventListener('click', close);
     $('#exModalBack').addEventListener('click', close);
+    document.addEventListener('keydown', onKey);
+    $('#exModalClose').focus();
   }
 
   /* ============================ ПЛЕЕР ============================ */
@@ -369,12 +469,12 @@
       root.innerHTML =
         '<div class="pl-progress"><i id="plBar"></i></div>' +
         '<div class="pl-top">' +
-          '<button class="pl-icon-btn" id="plClose" aria-label="close">✕</button>' +
+          '<button class="pl-icon-btn" id="plClose" aria-label="' + S().close + '">✕</button>' +
           '<div class="pl-title"><div class="t1">' + L(A.BLOCK_LABELS[curBlockKey]) + ' · ' + L(A.WEEK[state.dow].tag) + '</div>' +
             '<div class="t2">' + L(block.title) + '</div></div>' +
           '<div class="pl-top-right">' +
-            '<button class="pl-icon-btn music ' + (musicOn ? 'on' : 'off') + '" id="plMusic" aria-label="music">🎵</button>' +
-            '<button class="pl-icon-btn" id="plSound" aria-label="sound">' + (soundOn ? '🔊' : '🔇') + '</button>' +
+            '<button class="pl-icon-btn music ' + (musicOn ? 'on' : 'off') + '" id="plMusic" aria-label="' + S().music + '">🎵</button>' +
+            '<button class="pl-icon-btn" id="plSound" aria-label="' + S().sound + '">' + (soundOn ? '🔊' : '🔇') + '</button>' +
           '</div>' +
         '</div>' +
         '<div class="pl-mid" id="plMid"></div>';
@@ -462,9 +562,9 @@
 
     function controlsHtml() {
       return '<div class="pl-controls">' +
-        '<div class="pl-ctl-wrap"><button class="pl-ctl" id="plPrev">⏮</button><div class="pl-ctl-lbl">' + S().back + '</div></div>' +
-        '<div class="pl-ctl-wrap"><button class="pl-ctl main" id="plPlay">' + (paused ? '▶' : '⏸') + '</button><div class="pl-ctl-lbl">' + (paused ? S().resume : S().pause) + '</div></div>' +
-        '<div class="pl-ctl-wrap"><button class="pl-ctl" id="plSkip">⏭</button><div class="pl-ctl-lbl">' + S().skip + '</div></div>' +
+        '<div class="pl-ctl-wrap"><button class="pl-ctl" id="plPrev" aria-label="' + S().back + '">⏮</button><div class="pl-ctl-lbl">' + S().back + '</div></div>' +
+        '<div class="pl-ctl-wrap"><button class="pl-ctl main" id="plPlay" aria-label="' + (paused ? S().resume : S().pause) + '">' + (paused ? '▶' : '⏸') + '</button><div class="pl-ctl-lbl">' + (paused ? S().resume : S().pause) + '</div></div>' +
+        '<div class="pl-ctl-wrap"><button class="pl-ctl" id="plSkip" aria-label="' + S().skip + '">⏭</button><div class="pl-ctl-lbl">' + S().skip + '</div></div>' +
         '</div>';
     }
     function wireControls() {
@@ -511,7 +611,7 @@
       paused = !paused;
       if (paused) cancelAnimationFrame(raf);
       else { stepEndAt = Date.now() + stepRemain * 1000; loop(); }
-      var b = $('#plPlay'); if (b) { b.textContent = paused ? '▶' : '⏸'; b.parentNode.querySelector('.pl-ctl-lbl').textContent = paused ? S().resume : S().pause; }
+      var b = $('#plPlay'); if (b) { b.textContent = paused ? '▶' : '⏸'; b.setAttribute('aria-label', paused ? S().resume : S().pause); b.parentNode.querySelector('.pl-ctl-lbl').textContent = paused ? S().resume : S().pause; }
     }
     function skip() { cancelAnimationFrame(raf); if (idx < steps.length - 1) enterStep(idx + 1); }
     function prev() {
@@ -521,7 +621,7 @@
     }
 
     function renderDone() {
-      running = false; cancelAnimationFrame(raf); releaseWakeLock();
+      running = false; cancelAnimationFrame(raf); releaseWakeLock(); stopMusic();
       var bar = $('#plBar'); if (bar) bar.style.width = '100%';
       beep(660, 120); setTimeout(function () { beep(880, 120); }, 150); setTimeout(function () { beep(1050, 200); }, 320);
       speak(S().spDone);
@@ -535,6 +635,7 @@
           '</div>' +
         '</div>';
       $('#plHome').addEventListener('click', close);
+      var home2 = $('#plHome2'); if (home2) home2.addEventListener('click', close);
       var nb = $('#plNextBlock');
       if (nb) nb.addEventListener('click', function () {
         var order = ['morning', 'day', 'evening'];
