@@ -47,7 +47,7 @@
       exOf: function (i, m, r, rs) { return 'Упражнение ' + i + ' из ' + m + (rs > 1 ? ' · подход ' + r + '/' + rs : ''); },
       switchSides: 'Смените сторону',
       back: 'Назад', pause: 'Пауза', resume: 'Продолжить', skip: 'Пропустить',
-      close: 'Закрыть', music: 'Музыка', sound: 'Звук',
+      close: 'Закрыть', music: 'Музыка', sound: 'Звук', video: 'Видео',
       doneH: 'Готово!', doneSub: function (b) { return 'Блок «' + b + '» завершён. Регулярность важнее идеальности — так держать!'; },
       nextBlock: function (b) { return 'Дальше: ' + b + ' (10 мин)'; }, home: 'На главную', greatDay: 'Отличный день! 💪',
       iosHint: 'Чтобы установить: <b>Поделиться</b> → <b>На экран «Домой»</b>',
@@ -76,7 +76,7 @@
       exOf: function (i, m, r, rs) { return 'Exercise ' + i + ' of ' + m + (rs > 1 ? ' · set ' + r + '/' + rs : ''); },
       switchSides: 'Switch sides',
       back: 'Back', pause: 'Pause', resume: 'Resume', skip: 'Skip',
-      close: 'Close', music: 'Music', sound: 'Sound',
+      close: 'Close', music: 'Music', sound: 'Sound', video: 'Video',
       doneH: 'Done!', doneSub: function (b) { return 'Block "' + b + '" complete. Consistency beats perfection — keep it up!'; },
       nextBlock: function (b) { return 'Next: ' + b + ' (10 min)'; }, home: 'Home', greatDay: 'Great day! 💪',
       iosHint: 'To install: <b>Share</b> → <b>Add to Home Screen</b>',
@@ -421,6 +421,7 @@
     var musicOn = load('coach_music', true);
     var music = null;
     var MUSIC = { morning: 'assets/audio/music-morning.mp3', day: 'assets/audio/music-day.mp3', evening: 'assets/audio/music-evening.mp3' };
+    var ytPlayer = null, ytApiLoading = false, ytQueue = null, curVideoId = null, videoShown = false;
 
     function build(block, exs) {
       var s = [];
@@ -527,14 +528,21 @@
 
       var restCls = (st.type === 'rest') ? ' rest' : '';
       var canInfo = (st.type === 'work' || st.type === 'activity') && st.ex;
+      var vid = (canInfo && A.videoFor) ? A.videoFor(st.ex) : '';
+      var useVideo = !!vid && (navigator.onLine !== false);
       var howBtn = canInfo ? '<button class="pl-how" id="plHow">ⓘ ' + S().howTo + '</button>' : '';
+      var vidBtn = useVideo ? '<button class="pl-how vid" id="plVidBtn">⏸ ' + S().video + '</button>' : '';
+      var illusHtml = useVideo
+        ? '<div class="pl-illus has-video"><div id="ytHolder"></div></div>'
+        : '<div class="pl-illus' + restCls + (canInfo ? ' tap' : '') + '"' + (canInfo ? ' id="plIllus"' : '') + '>' + A.svgFor(pose) + '</div>';
+      mid.className = 'pl-mid' + (useVideo ? ' has-video' : '');
       mid.innerHTML =
         '<div class="pl-phase ' + phaseCls + '">' + phaseTxt + '</div>' +
-        '<div class="pl-illus' + restCls + (canInfo ? ' tap' : '') + '"' + (canInfo ? ' id="plIllus"' : '') + '>' + A.svgFor(pose) + '</div>' +
+        illusHtml +
         '<div class="pl-exname">' + name + '</div>' +
         (st.ex ? '<div class="pl-muscle">' + (A.muscleFor ? A.muscleFor(st.ex, lang) : '') + '</div>' : '') +
         '<div class="pl-reps">' + reps + '</div>' +
-        howBtn +
+        '<div class="pl-actions">' + howBtn + vidBtn + '</div>' +
         '<div class="pl-ring">' +
           '<svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/>' +
           '<circle class="bar' + restCls + '" id="plRingBar" cx="60" cy="60" r="52"/></svg>' +
@@ -546,10 +554,21 @@
         controlsHtml();
 
       wireControls();
-      if (canInfo) {
-        var openIt = function () { openExerciseInfo(st.ex, curBlockKey); };
-        var h = $('#plHow'); if (h) h.addEventListener('click', openIt);
-        var il = $('#plIllus'); if (il) il.addEventListener('click', openIt);
+      if (useVideo) {
+        showVideo(vid);
+        var vb = $('#plVidBtn');
+        if (vb) vb.addEventListener('click', function () {
+          if (videoPlaying()) { pauseVideo(); vb.textContent = '▶ ' + S().video; }
+          else { playVideo(); vb.textContent = '⏸ ' + S().video; }
+        });
+        var hh = $('#plHow'); if (hh) hh.addEventListener('click', function () { openExerciseInfo(st.ex, curBlockKey); });
+      } else {
+        hideVideo();
+        if (canInfo) {
+          var openIt = function () { openExerciseInfo(st.ex, curBlockKey); };
+          var h = $('#plHow'); if (h) h.addEventListener('click', openIt);
+          var il = $('#plIllus'); if (il) il.addEventListener('click', openIt);
+        }
       }
       updateRing(1);
     }
@@ -609,8 +628,8 @@
 
     function togglePause() {
       paused = !paused;
-      if (paused) cancelAnimationFrame(raf);
-      else { stepEndAt = Date.now() + stepRemain * 1000; loop(); }
+      if (paused) { cancelAnimationFrame(raf); pauseVideo(); }
+      else { stepEndAt = Date.now() + stepRemain * 1000; loop(); if (videoShown) playVideo(); }
       var b = $('#plPlay'); if (b) { b.textContent = paused ? '▶' : '⏸'; b.setAttribute('aria-label', paused ? S().resume : S().pause); b.parentNode.querySelector('.pl-ctl-lbl').textContent = paused ? S().resume : S().pause; }
     }
     function skip() { cancelAnimationFrame(raf); if (idx < steps.length - 1) enterStep(idx + 1); }
@@ -621,7 +640,7 @@
     }
 
     function renderDone() {
-      running = false; cancelAnimationFrame(raf); releaseWakeLock(); stopMusic();
+      running = false; cancelAnimationFrame(raf); releaseWakeLock(); stopMusic(); hideVideo();
       var bar = $('#plBar'); if (bar) bar.style.width = '100%';
       beep(660, 120); setTimeout(function () { beep(880, 120); }, 150); setTimeout(function () { beep(1050, 200); }, 320);
       speak(S().spDone);
@@ -651,7 +670,7 @@
     }
 
     function close() {
-      running = false; cancelAnimationFrame(raf); releaseWakeLock(); stopMusic();
+      running = false; cancelAnimationFrame(raf); releaseWakeLock(); stopMusic(); hideVideo();
       root.hidden = true; root.innerHTML = '';
       document.body.style.overflow = '';
       renderAll();
@@ -674,6 +693,55 @@
         if (musicOn) { if (music && music.src) music.play().catch(function () {}); else startMusic(curBlockKey); }
         else if (music) music.pause();
       } catch (e) {}
+    }
+
+    /* ---- Видео «как делать» (YouTube, со звуком; музыка приглушается) ---- */
+    function ensureYT(cb) {
+      if (window.YT && window.YT.Player) { cb(); return; }
+      ytQueue = cb;
+      var prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = function () {
+        if (prev) { try { prev(); } catch (e) {} }
+        if (ytQueue) { var c = ytQueue; ytQueue = null; c(); }
+      };
+      if (!ytApiLoading) {
+        ytApiLoading = true;
+        var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s);
+      }
+    }
+    function duckMusic(videoIsPlaying) {
+      try {
+        if (videoIsPlaying) { if (music) music.pause(); }
+        else if (musicOn && music && running) music.play().catch(function () {});
+      } catch (e) {}
+    }
+    function showVideo(videoId) {
+      videoShown = true; curVideoId = videoId;
+      ensureYT(function () {
+        var holder = $('#ytHolder'); if (!holder || !videoShown || curVideoId !== videoId) return;
+        try { if (ytPlayer && ytPlayer.destroy) ytPlayer.destroy(); } catch (e) {}
+        try {
+          ytPlayer = new YT.Player(holder, {
+            width: '100%', height: '100%', videoId: videoId,
+            playerVars: { autoplay: 1, mute: 0, rel: 0, playsinline: 1, modestbranding: 1, iv_load_policy: 3 },
+            events: {
+              onReady: function (e) { try { e.target.playVideo(); } catch (x) {} },
+              onStateChange: function (e) {
+                if (e.data === 1) duckMusic(true);
+                else if (e.data === 2 || e.data === 0) duckMusic(false);
+              }
+            }
+          });
+        } catch (e) {}
+      });
+    }
+    function pauseVideo() { try { if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); } catch (e) {} }
+    function playVideo() { try { if (ytPlayer && ytPlayer.playVideo) ytPlayer.playVideo(); } catch (e) {} }
+    function videoPlaying() { try { return !!(ytPlayer && ytPlayer.getPlayerState && ytPlayer.getPlayerState() === 1); } catch (e) { return false; } }
+    function hideVideo() {
+      videoShown = false; curVideoId = null;
+      try { if (ytPlayer && ytPlayer.destroy) ytPlayer.destroy(); } catch (e) {}
+      ytPlayer = null; duckMusic(false);
     }
 
     /* ---- Звук / голос ---- */

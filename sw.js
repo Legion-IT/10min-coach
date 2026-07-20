@@ -1,12 +1,12 @@
 /* Service Worker — офлайн-режим для «10-минутный тренер» */
-var CACHE = 'coach-v14';
+var CACHE = 'coach-v15';
 var ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './assets/css/styles.css?v=14',
-  './assets/js/data.js?v=14',
-  './assets/js/app.js?v=14',
+  './assets/css/styles.css?v=15',
+  './assets/js/data.js?v=15',
+  './assets/js/app.js?v=15',
   './assets/icons/icon.svg',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',

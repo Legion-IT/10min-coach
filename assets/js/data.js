@@ -566,9 +566,25 @@
   };
   function descFor(ex, lang) { var d = DESC[ex.n.en]; return d ? (d[lang] || d.ru) : ''; }
 
+  /* ---- Видео «как делать» (YouTube ID по базовому движению = позе) ---- */
+  var VIDEO = {
+    squat: 'JO7D6GJ98wY', bridge: 'Q_Bpj91Yiis', calf: 'k8ipHzKeAkQ', legraise: 'Zr-PtqcpeWM',
+    balance: 'tTQ5QG7rR-s', press: 'pKZMNVbfUzQ', fly: 'IDd4irl0060', onearmrow: 'Qx2f4YwJAu4',
+    pushup: '49jfZ_z7-us', plank: 'mH5Sfb_KTGg', bentrow: 'k6zVg1zu-x0', rdl: 'hQgFixeXdZo',
+    deadbug: 'g_BYB0R-4Ws', birddog: 'biN8oIV1umA', superman: 'HAjQVUp9mS4', march: '-aQbL65YHR0',
+    ohpress: '1jYq9QQEWqE', reversefly: 'Vppb2I0qz3k', lateral: 'pgrWjBfaFe8', curl: 'zC3nLlEvin4',
+    ohext: '-Vyt2QdsR7E', sideplank: '7Zat7RFY52Y', stretch: 'H_VH2eilukE', mobility: 'JYqLwajOGjI',
+    walk: 'V55s_GcJN_A', catcow: 'xyNwxiuERXc', clamshell: 'Cn09FlW5Zfs', crunch: 'gAyTBB4lm3I',
+    farmer: 'lLAw6fUccKA', heelslide: 'Bz0wSFRjH2c', hipabduction: 'qBqKuEQl9sI', hipadduction: 'ha1V5hEhB_E',
+    kneeext: 'VuJZ6dqMf8M', pullover: 'Qc4L9I3pHnw', rotation: 'fBQ1nMmf3b0', sidebend: 'wY9nQ-yfRwo',
+    toetraise: 'mmLnKYwdDMM'
+  };
+  function videoFor(ex) { return ex && VIDEO[ex.p] ? VIDEO[ex.p] : ''; }
+
   window.APP = {
     svgFor: svgFor, POSES: POSES, POOL: POOL,
     WEEK: WEEK, BLOCK_KEYS: BLOCK_KEYS, BLOCK_LABELS: BLOCK_LABELS,
-    blockFor: blockFor, INFO: INFO, pick: pick, muscleFor: muscleFor, DESC: DESC, descFor: descFor
+    blockFor: blockFor, INFO: INFO, pick: pick, muscleFor: muscleFor, DESC: DESC, descFor: descFor,
+    VIDEO: VIDEO, videoFor: videoFor
   };
 })();
